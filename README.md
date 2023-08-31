@@ -2,7 +2,16 @@
 
 #### Mikä on SQL-kieli
 
-- SQL on lyhennelmä
+- SQL on stantardisoitu kieli viestimiseen tietokannan kanssa
+- SQL on lyhennelmä sanoista "Structured Query Language", se tarkoittaa suomeksi Jäsenneltyä kyselykieltä
+- 
+
+##### Mihin SQL-kieltä käytetään?
+
+- SQL:ää käytetään tietokantojen hallinnointiin
+- SQL:n avulla voi hallita tietokantaa ilman graafista käyttöliittymää
+
+
 
 
 #### SQL-kielen syntaksi
@@ -20,3 +29,4 @@ Yleensä suositaan isoja kirjaimia, koska komentojen parametrit ovat usein piene
 
 Parametrit täytyy kirjoittaa tarkasti:\
 `kayttajat != Kayttajat`
+
