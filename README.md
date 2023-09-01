@@ -102,8 +102,6 @@ CREATE TABLE <taulukon nimi> (<sarake1> <tietomuoto>, <sarake2> <tietomuoto>, ..
 
 *Useimmat tiedostomuodot ottavat parametriksi merkkien maksimipituuden. `int(6)` tarkoittaa siis 6 luvun yhdistelmää, eli sen maksimiarvo olisi 999 999.*
 
-<br><br>
-
 Esimerkiksi:
 ```SQL
 CREATE TABLE postaukset (
@@ -136,6 +134,66 @@ UNIQUE
 DEFAULT
 ```
 
+CLI -päätteessä komennolla `SHOW TABLES;` voi nähdä kaikki taulut:
+```SQL
+CREATE TABLE kayttajat (
+    id int(6) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nimi varchar(20) NOT NULL,
+    sukunimi varchar(30) NOT NULL
+);
+> luotu taulukko 'kayttajat'
+
+SHOW TABLES;
+> taulukot:
+> vanha_taulukko
+> kayttajat
+```
+<br><br>
+
+
+
+`DROP TABLE` -komennolla poistetaan taulu kokonaan. 
+**Myös kaikki taulukon tiedot katoavat!**
+```SQL
+DROP TABLE <taulukko>;
+```
+<br><br>
+
+
+
+`ALTER TABLE` -komennolla voi muokata jo luotujen taulujen sarakkeita.
+```SQL
+ALTER TABLE <taulun nimi> (ADD | CHANGE | MODIFY | ADD) <sarake> [<parametrit>];
+```
+<br>
+
+`ADD` -parametrilla lisätään tauluun lisää sarakkeita:
+```SQL
+ALTER TABLE kayttajat ADD ika int(6) NOT NULL;
+```
+
+`MODIFY` -parametrilla muutetaan sarakkeen parametrejä:
+```SQL
+ALTER TABLE kayttajat MODIFY asiakas_id AUTO_INCREMENT;
+```
+*Myös vanhoja parametrejä voi muokata, jos vanhoja parametrejä ei ole mainittu, ne pysyvät ennallaan.*
+
+`CHANGE` -parametri on samanlainen kuin edellinen, mutta sillä voi muokata nimeä:
+```SQL
+ALTER TABLE kayttajat CHANGE ika asiakas_id int(6) NOT NULL AUTO_INCREMENT;
+```
+*Kun käytetään `CHANGE` -parametriä, täytyy asettaa kaikki parametrit uudelleen sarakkeeseen.*
+
+> Uudemmissa versioissa nimeä pystyy vaihtamaan sarakkeen nimeä parametrilla `RENAME`:
+> ```SQL
+> ALTER TABLE kayttajat RENAME ika TO asiakas_id;
+> ```
+
+
+`DROP` -parametrilla poistetaan sarake taulukosta:
+```SQL
+ALTER TABLE kayttajat DROP asiakas_id;
+```
 <br><br>
 
 
