@@ -44,7 +44,33 @@ INSERT INTO kayttajat VALUES ('matti', 'meikäläinen', '43'); SELECT * FROM kay
 
 ### Yleisimpiä SQL-kielen komentoja
 
-`SELECT` -komennolla haetaan tietoja tietokannan tauluista.'
+`CREATE DATABASE` -komennolla luodaan uusi tietokanta.
+```SQL
+CREATE DATABASE <tietokannan nimi>;
+```
+Luodun tietokannan voi nähdä komennolla `SHOW DATABASES;`.
+
+Esimerkiksi:
+```SQL
+CREATE DATABASE uusi_tietokanta;
+> luotiin tietokanta 'uusi_tietokanta'
+
+SHOW DATABASES;
+> tietokannat:
+> vanha_tietokanta
+> uusi_tietokanta
+```
+*kaikkien vastausten muoto on vain esimerkki, oikean haun tulokset näyttävät erilaisilta.*
+<br><br>
+
+`CREATE TABLE` -komennolla luodaan uusi taulu tietokantaan.
+```SQL
+CREATE TABLE 
+```
+<br><br>
+
+`SELECT` -komennolla haetaan tietoja tietokannan tauluista.
+
 ```SQL
 SELECT <sarake1>[, <sarake2>, ...] FROM <taulukko>;
 ```
@@ -62,7 +88,6 @@ SELECT * FROM kayttajat;
 > 3         Risto       Virtanen
 ```
 Komento palauttaa kaikki tiedot `kayttajat`, taulukosta.\
-*vastauksen muoto on vain esimerkki, oikean haun tulokset näyttävät erilaisilta.*
 
 Komennolla voi myös hakea vain tiettyjä sarakkeita:
 ```SQL
@@ -73,4 +98,5 @@ SELECT id, sukunimi FROM kayttajat;
 > 2         Korhonen
 > 3         Virtanen
 ```
+<br><br>
 
