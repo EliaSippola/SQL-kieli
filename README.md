@@ -74,12 +74,14 @@ SHOW DATABASES;
 > Huom, suurin osa komennoista joissa työskennellään tietokannassa ei toimi CLI -päätteessä ilman että tietokanta on valittu.\
 > Valitun tietokannan näkee useimmiten CLI -päätteestä:
 >```
->MariaDB [(none)]>
+> MariaDB [(none)]>
 >```
 >Käytä komentoa `USE <tietokanta>;` valitaksesi tietokannan.
 >```SQL
-> USE uusi_tietokanta;
+> MariaDB [(none)]> USE uusi_tietokanta;
 > > tietokannaksi valittu 'uusi_tietokanta'
+>
+> MariaDB [uusi_tietokanta]>
 >```
 
 
