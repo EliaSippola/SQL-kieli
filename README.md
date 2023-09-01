@@ -89,6 +89,9 @@ SHOW DATABASES;
 >
 > MariaDB [uusi_tietokanta]>
 >```
+
+<br>
+
 ---
 
 <br>
@@ -148,6 +151,9 @@ SHOW TABLES;
 > vanha_taulukko
 > kayttajat
 ```
+
+<br>
+
 ---
 
 <br>
@@ -157,6 +163,9 @@ SHOW TABLES;
 ```SQL
 DROP TABLE <taulukko>;
 ```
+
+<br>
+
 ---
 
 <br>
@@ -188,6 +197,9 @@ ALTER TABLE kayttajat CHANGE ika asiakas_id int(4) NOT NULL;
 > ```SQL
 > ALTER TABLE kayttajat RENAME ika TO asiakas_id;
 > ```
+
+<br>
+
 ---
 
 <br>
@@ -196,6 +208,9 @@ ALTER TABLE kayttajat CHANGE ika asiakas_id int(4) NOT NULL;
 ```SQL
 ALTER TABLE kayttajat DROP asiakas_id;
 ```
+
+<br>
+
 ---
 
 <br>
