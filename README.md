@@ -118,24 +118,22 @@ CREATE TABLE postaukset (
 Tiedostomuotojen lisäksi sarakkeille annetaan muitakin parametreja.\
 Näistä yleisimpiä on:
 ```SQL
-'Pääavain, eli uniikki arvo kaikille tietueille
-tämän avulla voidaan tunnistaa yksittäiset tietueet toisistaan
-Pääavain on pakko asettaa kaikkiin taulukoihin' 
+#Pääavain, eli uniikki arvo kaikille tietueille
+#tämän avulla voidaan tunnistaa yksittäiset tietueet toisistaan
+#Pääavain on pakko asettaa kaikkiin taulukoihin
 PRIMARY KEY
 
-'ei saa olla tyhjä'
+#ei saa olla tyhjä
 NOT NULL
 
-'lisää aina yksi kun luodaan uusi tietue'
+#lisää aina yksi kun luodaan uusi tietue
 AUTO_INCREMENT
 
-'aina uniikki, ei samanlaisia arvoja sarakkeessa'
+#aina uniikki, ei samanlaisia arvoja sarakkeessa
 UNIQUE
 
-'oletusarvo'
+#oletusarvo'
 DEFAULT
-
-#test
 ```
 
 <br><br>
