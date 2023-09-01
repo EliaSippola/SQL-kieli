@@ -44,4 +44,33 @@ INSERT INTO kayttajat VALUES ('matti', 'meikäläinen', '43'); SELECT * FROM kay
 
 ### Yleisimpiä SQL-kielen komentoja
 
-##### SELECT
+`SELECT` -komennolla haetaan tietoja tietokannan tauluista.'
+```SQL
+SELECT <sarake1>[, <sarake2>, ...] FROM <taulukko>;
+```
+<br>
+
+Parametri "*" tarkoittaa kaikkia sarakkeita.
+
+Esimerkiksi:
+```SQL
+SELECT * FROM kayttajat;
+
+> id        nimi        sukunimi
+> 1         Matti       Meikäläinen
+> 2         Anna        Korhonen
+> 3         Risto       Virtanen
+```
+Komento palauttaa kaikki tiedot `kayttajat`, taulukosta.\
+*vastauksen muoto on vain esimerkki, oikean haun tulokset näyttävät erilaisilta.*
+
+Komennolla voi myös hakea vain tiettyjä sarakkeita:
+```SQL
+SELECT id, sukunimi FROM kayttajat;
+
+> id        sukunimi
+> 1         Meikäläinen
+> 2         Korhonen
+> 3         Virtanen
+```
+
