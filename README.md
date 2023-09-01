@@ -1,5 +1,6 @@
 # SQL-kieli
 
+
 ### Mikä on SQL-kieli
 
 - SQL on stantardisoitu kieli viestimiseen tietokannan kanssa
@@ -7,11 +8,14 @@
 - Suurin osa nykyisistä tietokantapalvelimista tukee tietokantojen ja tiedon hallintaa SQL kielellä
 <br>
 
+
 ### Mihin SQL-kieltä käytetään?
 
 - SQL:ää käytetään tietokantojen hallinnointiin suoraan CLI-päätteestä (Command Line Interface), tai koodista.
 - Sen avulla voidaan sekä hallinnoida tietokantoja, käyttäjiä ja niiden oikeuksia, että hakea, lisätä, muokata ja poistaa tietokantojen taulukoita ja tietueita.
 <br>
+
+
 
 ### SQL-kielen syntaksi
 
@@ -51,6 +55,8 @@ CREATE TABLE kayttajat (
 ```
 <br>
 
+
+
 ### Yleisimpiä SQL-kielen komentoja
 
 `CREATE DATABASE` -komennolla luodaan uusi tietokanta.
@@ -83,18 +89,58 @@ SHOW DATABASES;
 >
 > MariaDB [uusi_tietokanta]>
 >```
-
-
-
 <br><br>
+
+
 
 `CREATE TABLE` -komennolla luodaan uusi taulu tietokantaan.
 ```SQL
 CREATE TABLE <taulukon nimi> (<sarake1> <tietomuoto>, <sarake2> <tietomuoto>, ...);
 ```
 
+*yleisimpiä tietomuotoja on esimerkiksi `int`: kokonaisluku, `float`: liukuluku, `varchar`: merkkijono, `text`: teksti ja `boolean` tai `bool`: totuusarvo. Lisää tietomuotoja löytyy [w3schoolin tietomuodot -sivulta](https://www.w3schools.com/sql/sql_datatypes.asp).*
+
+*Useimmat tiedostomuodot ottavat parametriksi merkkien maksimipituuden. `int(6)` tarkoittaa siis 6 luvun yhdistelmää, eli sen maksimiarvo olisi 999 999.*
 
 <br><br>
+
+Esimerkiksi:
+```SQL
+CREATE TABLE postaukset (
+    id int(6) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    otsikko varchar(40) NOT NULL UNIQUE,
+    teksti text(500) NOT NULL,
+    arvostelunro float(3),
+    saaNakya boolean DEFAULT '1' NOT NULL
+);
+```
+
+Tiedostomuotojen lisäksi sarakkeille annetaan muitakin parametreja.\
+Näistä yleisimpiä on:
+```SQL
+'Pääavain, eli uniikki arvo kaikille tietueille
+tämän avulla voidaan tunnistaa yksittäiset tietueet toisistaan
+Pääavain on pakko asettaa kaikkiin taulukoihin' 
+PRIMARY KEY
+
+'ei saa olla tyhjä'
+NOT NULL
+
+'lisää aina yksi kun luodaan uusi tietue'
+AUTO_INCREMENT
+
+'aina uniikki, ei samanlaisia arvoja sarakkeessa'
+UNIQUE
+
+'oletusarvo'
+DEFAULT
+
+#test
+```
+
+<br><br>
+
+
 
 `SELECT` -komennolla haetaan tietoja tietokannan tauluista.
 
@@ -103,7 +149,7 @@ SELECT <sarake1>[, <sarake2>, ...] FROM <taulukko>;
 ```
 <br>
 
-Parametri "*" tarkoittaa kaikkia sarakkeita.
+Parametri '*' tarkoittaa kaikkia sarakkeita.
 
 Esimerkiksi:
 ```SQL
@@ -114,7 +160,8 @@ SELECT * FROM kayttajat;
 > 2         Anna        Korhonen
 > 3         Risto       Virtanen
 ```
-Komento palauttaa kaikki tiedot `kayttajat`, taulukosta.\
+Komento palauttaa kaikki tiedot `kayttajat`, taulukosta.
+<br><br>
 
 Komennolla voi myös hakea vain tiettyjä sarakkeita:
 ```SQL
