@@ -62,20 +62,26 @@ Luodun tietokannan voi nähdä komennolla `SHOW DATABASES;`.
 Esimerkiksi:
 ```SQL
 CREATE DATABASE uusi_tietokanta;
-> luotiin tietokanta 'uusi_tietokanta'
+> luotiin tietokanta 'uusi_tietokanta'      ;
 
-SHOW DATABASES;
-> tietokannat:
-> vanha_tietokanta
-> uusi_tietokanta
+SHOW DATABASES;                                     
+> tietokannat:                              ;
+> vanha_tietokanta                          ;
+> uusi_tietokanta                           ;
 ```
 *kaikkien vastausten muoto on vain esimerkki, oikean haun tulokset näyttävät erilaisilta.*
+
+> Huom, suurin osa komennoista joissa työskennellään tietokannassa ei toimi CLI (Command Line Interface) -päätteessä ilman että tietokanta on valittu.\
+>Käytä komentoa `USE <tietokanta>;` valitaksesi tietokannan.
+
 <br><br>
 
 `CREATE TABLE` -komennolla luodaan uusi taulu tietokantaan.
 ```SQL
-CREATE TABLE <taulukon nimi> (<sarake1> <sarakkeen >)
+CREATE TABLE <taulukon nimi> (<sarake1> <tietomuoto>, <sarake2> <tietomuoto>, ...);
 ```
+
+
 <br><br>
 
 `SELECT` -komennolla haetaan tietoja tietokannan tauluista.
