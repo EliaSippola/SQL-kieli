@@ -40,6 +40,15 @@ SELECT * FROM kayttajat WHERE kayttaja_nimi = 'matti';
 ```SQL
 INSERT INTO kayttajat VALUES ('matti', 'meikäläinen', '43'); SELECT * FROM kayttajat WHERE nimi = 'matti';
 ```
+
+SQL ei myöskään ota huomioon rivinvaihtoja:
+```SQL
+CREATE TABLE kayttajat (
+    id int(6) NOT NULL AUTO_INCREMENT,
+    nimi varchar(20) NOT NULL,
+    sukunimi varchar(30) NOT NULL
+);
+```
 <br>
 
 ### Yleisimpiä SQL-kielen komentoja
@@ -65,7 +74,7 @@ SHOW DATABASES;
 
 `CREATE TABLE` -komennolla luodaan uusi taulu tietokantaan.
 ```SQL
-CREATE TABLE 
+CREATE TABLE <taulukon nimi> (<sarake1> <sarakkeen >)
 ```
 <br><br>
 
