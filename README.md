@@ -57,22 +57,32 @@ CREATE TABLE kayttajat (
 ```SQL
 CREATE DATABASE <tietokannan nimi>;
 ```
-Luodun tietokannan voi nähdä komennolla `SHOW DATABASES;`.
+Kun käytetään CLI (Command Line Interface) -päätettä, luodun tietokannan voi nähdä komennolla `SHOW DATABASES;`.
 
 Esimerkiksi:
 ```SQL
 CREATE DATABASE uusi_tietokanta;
-> luotiin tietokanta 'uusi_tietokanta'      ;
+> luotiin tietokanta 'uusi_tietokanta'
 
-SHOW DATABASES;                                     
-> tietokannat:                              ;
-> vanha_tietokanta                          ;
-> uusi_tietokanta                           ;
+SHOW DATABASES;
+> tietokannat:
+> vanha_tietokanta
+> uusi_tietokanta
 ```
 *kaikkien vastausten muoto on vain esimerkki, oikean haun tulokset näyttävät erilaisilta.*
 
-> Huom, suurin osa komennoista joissa työskennellään tietokannassa ei toimi CLI (Command Line Interface) -päätteessä ilman että tietokanta on valittu.\
+> Huom, suurin osa komennoista joissa työskennellään tietokannassa ei toimi CLI -päätteessä ilman että tietokanta on valittu.\
+> Valitun tietokannan näkee useimmiten CLI -päätteestä:
+>```
+>MariaDB [(none)]>
+>```
 >Käytä komentoa `USE <tietokanta>;` valitaksesi tietokannan.
+>```SQL
+> USE uusi_tietokanta;
+> > tietokannaksi valittu 'uusi_tietokanta'
+>```
+
+
 
 <br><br>
 
