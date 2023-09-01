@@ -59,6 +59,12 @@ CREATE TABLE kayttajat (
 
 ### Yleisimpiä SQL-kielen komentoja
 
+**Jotkin komennot eivät välttämättä toimi kaikilla versioilla. Tässä ohjeessa on käytetty MariaDB:n versiota 10.4.3 SQL-kielen syntaksissa**
+
+---
+
+<br>
+
 `CREATE DATABASE` -komennolla luodaan uusi tietokanta.
 ```SQL
 CREATE DATABASE <tietokannan nimi>;
@@ -176,18 +182,18 @@ ALTER TABLE <taulun nimi> (ADD | CHANGE | MODIFY | ADD) <sarake> [<parametrit>];
 ```
 <br>
 
-`ADD` -parametrilla lisätään tauluun lisää sarakkeita:
+- `ADD` -parametrilla lisätään tauluun lisää sarakkeita:
 ```SQL
 ALTER TABLE kayttajat ADD ika int(6) NOT NULL;
 ```
 
-`MODIFY` -parametrilla muutetaan sarakkeen parametrejä:
+- `MODIFY` -parametrilla muutetaan sarakkeen parametrejä:
 ```SQL
 ALTER TABLE kayttajat MODIFY asiakas_id int(4) NOT NULL;
 ```
 *Kun käytetään `MODIFY` -parametriä, täytyy asettaa kaikki parametrit uudelleen sarakkeeseen.*
 
-`CHANGE` -parametri on samanlainen kuin edellinen, mutta sillä voi muokata nimeä:
+- `CHANGE` -parametri on samanlainen kuin edellinen, mutta sillä voi muokata nimeä:
 ```SQL
 ALTER TABLE kayttajat CHANGE ika asiakas_id int(4) NOT NULL;
 ```
@@ -198,15 +204,19 @@ ALTER TABLE kayttajat CHANGE ika asiakas_id int(4) NOT NULL;
 > ALTER TABLE kayttajat RENAME ika TO asiakas_id;
 > ```
 
-<br>
-
----
-
-<br>
-
-`DROP` -parametrilla poistetaan sarake taulukosta:
+- `DROP` -parametrilla poistetaan sarake taulukosta:
 ```SQL
 ALTER TABLE kayttajat DROP asiakas_id;
+```
+<br>
+
+Kun luo taulukoita, tai muokkaa taulujen sarakkeita, kannattaa tarkistaa taulujen parametrit säännöllisesti komennolla `DESCRIBE <taulukko>;` (lyhenteenä `DESC`):
+```SQL
+DESCRIBE kayttajat;
+> nimi          tyyppi      tyhjä   Avain   Oletus  Lisää
+> id            int(6)      NO      PRI     NULL    auto_increment
+> nimi          varchar(20) NO              NULL    
+> sukunimi      varchar(30) NO              NULL    
 ```
 
 <br>
