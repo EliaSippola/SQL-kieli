@@ -89,9 +89,9 @@ SHOW DATABASES;
 >
 > MariaDB [uusi_tietokanta]>
 >```
-<br><br>
+---
 
-
+<br>
 
 `CREATE TABLE` -komennolla luodaan uusi taulu tietokantaan.
 ```SQL
@@ -148,18 +148,18 @@ SHOW TABLES;
 > vanha_taulukko
 > kayttajat
 ```
-<br><br>
+---
 
-
+<br>
 
 `DROP TABLE` -komennolla poistetaan taulu kokonaan. 
 **Myös kaikki taulukon tiedot katoavat!**
 ```SQL
 DROP TABLE <taulukko>;
 ```
-<br><br>
+---
 
-
+<br>
 
 `ALTER TABLE` -komennolla voi muokata jo luotujen taulujen sarakkeita.
 ```SQL
@@ -174,29 +174,31 @@ ALTER TABLE kayttajat ADD ika int(6) NOT NULL;
 
 `MODIFY` -parametrilla muutetaan sarakkeen parametrejä:
 ```SQL
-ALTER TABLE kayttajat MODIFY asiakas_id AUTO_INCREMENT;
+ALTER TABLE kayttajat MODIFY asiakas_id int(4) NOT NULL;
 ```
-*Myös vanhoja parametrejä voi muokata, jos vanhoja parametrejä ei ole mainittu, ne pysyvät ennallaan.*
+*Kun käytetään `MODIFY` -parametriä, täytyy asettaa kaikki parametrit uudelleen sarakkeeseen.*
 
 `CHANGE` -parametri on samanlainen kuin edellinen, mutta sillä voi muokata nimeä:
 ```SQL
-ALTER TABLE kayttajat CHANGE ika asiakas_id int(6) NOT NULL AUTO_INCREMENT;
+ALTER TABLE kayttajat CHANGE ika asiakas_id int(4) NOT NULL;
 ```
-*Kun käytetään `CHANGE` -parametriä, täytyy asettaa kaikki parametrit uudelleen sarakkeeseen.*
+*Samoin kuin `MODIFY` -parametrillä, `CHANGE` -parametrillä täytyy asettaa kaikki parametrit uudelleen sarakkeeseen.*
 
 > Uudemmissa versioissa nimeä pystyy vaihtamaan sarakkeen nimeä parametrilla `RENAME`:
 > ```SQL
 > ALTER TABLE kayttajat RENAME ika TO asiakas_id;
 > ```
+---
 
+<br>
 
 `DROP` -parametrilla poistetaan sarake taulukosta:
 ```SQL
 ALTER TABLE kayttajat DROP asiakas_id;
 ```
-<br><br>
+---
 
-
+<br>
 
 `SELECT` -komennolla haetaan tietoja tietokannan tauluista.
 
