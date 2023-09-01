@@ -42,5 +42,6 @@ INSERT INTO kayttajat VALUES ('matti', 'meikäläinen', '43'); SELECT * FROM kay
 ```
 <br>
 
-### Yleisimpiä komentoja
+### Yleisimpiä SQL-kielen komentoja
 
+##### SELECT
