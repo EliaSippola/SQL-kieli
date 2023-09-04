@@ -225,6 +225,34 @@ DESCRIBE kayttajat;
 
 <br>
 
+`INSERT INTO` -komennolla lisätään tietoja jo luotuun tietokantaan.
+```SQL
+INSERT INTO <taulukko> [(sarake1, sarake2, ...)] VALUES (arvo1, arvo2, ...);
+```
+
+Esimerkiksi:
+```SQL
+INSERT INTO kayttajat (nimi, sukunimi) VALUES ('Matti', 'Meikäläinen');
+```
+
+*Sarakkeet ja niiden arvot kirjoitetaan järjestyksessä oikealta vasemmalle. Sarakkeet voivat olla missä järjestyksessä tahansa, mutta niiden arvojen on oltava samassa järjestyksessä:*
+```SQL
+INSERT INTO kayttajat (sukunimi, nimi) VALUES ('Korhonen', 'Anna');
+```
+
+Komentoon ei ole pakko asettaa sarakkeita erikseen:
+```SQL
+INSERT INTO kayttajat VALUES (3, 'Risto', 'Virtanen');
+``` 
+
+Jos et aseta sarakenimiä, tulee sinun kuitenkin asettaa arvo kaikkiin taulukon sarakkeisiin järjestyksessä, tai tietokanta antaa virheilmoituksen.
+
+<br>
+
+---
+
+<br>
+
 `SELECT` -komennolla haetaan tietoja tietokannan tauluista.
 
 ```SQL
@@ -255,5 +283,122 @@ SELECT id, sukunimi FROM kayttajat;
 > 2         Korhonen
 > 3         Virtanen
 ```
-<br><br>
+<br>
+
+---
+
+<br>
+
+`WHERE` -argumantilla valitaan tiettyjä arvoja tietokannasta. `WHERE` -argumenttia ei voi käyttää yksistään, mutta sitä käytetään monessa eri komennossa tiedon valitsemista varten.
+```SQL
+... WHERE <ehto>;
+```
+
+Esimerkiksi:
+```SQL
+SELECT * FROM kayttajat WHERE id = 2;
+> id        nimi        sukunimi
+> 2         Anna        Korhonen
+```
+`WHERE` -komennolla on monia loogisia operaattoreita, kuten:
+
+- `=`           on yhtä kuin
+- `>`/`<`       suurempi/pienempi kuin
+- `>=`/`<=`     yhtä suuri tai suurempi/pienempi kuin
+- `<>`          ei yhtä suuri kuin
+
+*joissain SQL:n versioissa* `<>` *on kirjoitettu* `!=`
+
+Lisäksi komennolla on muutama ehto joilla voi lisätä hakufunktion ominaisuuksia:
+
+- `BETWEEN` argumentilla saadaan tietueet tiettyjen arvojen välistä:
+```SQL
+SELECT id, nimi FROM kayttajat WHERE id BETWEEN 2 AND 3;
+> id        nimi
+> 2         Anna
+> 3         Risto
+```
+Haku palauttaa kaikki tietueet joissa id on arvojen 2 ja 3 välissä.
+
+- `LIKE` argumentilla voidaan valita tietyillä merkkijonoilla alkavia, loppuvia tai tietyn merkkijonon sisältäviä arvoja:
+```SQL
+SELECT id, sukunimi FROM kayttajat WHERE sukunimi LIKE '__r%';
+> id        sukunimi
+> 2         Korhonen
+> 3         Virtanen
+```
+Komento palauttaa kaikki tietueet, joissa sarakkeen sukunimi -arvojen kolmas kirjain on 'r'.
+
+merkki `'_'` tarkoittaa mitä tahansa yhtä kirjainta, ja `'%'` mitä tahansa merkkijonoa. *Joissain SQL versioissa yhden kirjaimen merkkinä käytetään merkkiä `'*'`.*
+
+- `IN` argumentilla voidaan hakea montaa eri hakuarvoa:
+```SQL
+SELECT id, nimi FROM kayttajat WHERE nimi IN ('Matti', 'Risto');
+> id        nimi
+> 1         Matti
+> 3         Risto
+```
+
+> `IN` -argumenttia voi käyttää myös toisen `SELECT` -komennon yhdistämistä varten.
+> Tämä voi olla hyödyllistä kun täytyy hakea tietoja toisen taulukon avulla:
+> ```SQL
+> SELECT * FROM ostot;
+> > id      tuote       ostaja
+> > 1       kattila     Risto
+> > 2       pata        Anna
+>
+> SELECT * FROM kayttajat WHERE nimi IN (SELECT ostaja FROM ostot);
+> > id      nimi        sukunimi
+> > 2       Anna        Korhonen
+> > 3       Risto       Virtanen
+> ```
+> *Voit myöskin käyttää `WHERE` -argumenttia `IN` -argumentin jälkeisessä haussa tarkentaaksesi haluamiasi tietoja*
+
+<br>
+
+---
+
+<br>
+
+`UPDATE` -komennolla voidaan muokata taulukon tietueita.
+```SQL
+UPDATE <taulukko> SET <sarake1> = <arvo>, <sarake2> = <arvo>, ... WHERE <ehto>;
+```
+
+
+
+<br>
+
+---
+
+<br>
+
+`DELETE` -komennolla poistetaan tietueita taulukosta.
+```SQL
+DELETE FROM <taulukko> WHERE <ehto>;
+```
+
+Esimerkiksi:
+```SQL
+DELETE FROM kayttajat WHERE name = 'Anna';
+> poistettu 'Anna' taulukosta kayttajat
+
+SELECT id, nimi FROM kayttajat;
+> id        nimi
+> 1         Matti
+> 3         Mikko
+```
+
+> **Huom! jos et laita komentoon `WHERE` -argumenttia, komento poistaa kaikki tietueet**
+> ```SQL
+> DELETE FROM kayttajat;
+> > taulukon kayttajat kaikki tietueet poistettu
+>
+> SELECT * FROM kayttajat;
+> > id      nimi        sukunimi
+> > 
+> ```
+> Tähän tarkoitukseen voidaan myös käyttää komentoa `TRUNCATE TABLE <taulukko>;`.
+> 
+> `TUNCATE TABLE` -komento on tehokkaampi kun halutaan poistaa kaikki tietueet, sillä se ei käy läpi tietueita erikseen.
 
