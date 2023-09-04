@@ -17,7 +17,7 @@
 
 
 
-### SQL-kielen syntaksi
+## SQL-kielen syntaksi
 
 Komentojen kirjaimet eivät ole "case sensitive", eli SQL ei piitta ovatko kirjaimet isoja vai pieniä:
 ```SQL
@@ -37,7 +37,7 @@ SELECT * FROM kayttajat WHERE kayttaja_nimi = 'matti';
 
 >Huom, kun luodaan uusia tietokantaobjekteja, niiden nimien tulee olla erilaisia kuin saman tason muut objektit.
 >
->esim: jos halutaan luoda tietokanta `TietoKanta`, huomataan että SQL antaa virheen `'Database exists'`, koska tietokanta `tietokanta` on jo luotu. 
+>esim: jos halutaan luoda tietokanta `TietoKanta`, huomataan että SQL antaa virheen `'Database already exists'`, koska tietokanta `tietokanta` on jo luotu. 
 >Toisaalta jos luodaan uusi taulu tietokantaan nimellä, joka on käytössä toisessa tietokannassa, SQL ei anna virheitä koska kyseistä nimeä ei vielä ole käytössä samassa tietokannassa.
 
 <br>SQL erottelee komennot toisistaan puolipisteiden avulla:
@@ -55,17 +55,20 @@ CREATE TABLE kayttajat (
 ```
 <br>
 
-
-
-### Yleisimpiä SQL-kielen komentoja
+## Yleisimpiä SQL-kielen komentoja
 
 **Jotkin komennot eivät välttämättä toimi kaikilla versioilla. Tässä ohjeessa on käytetty MariaDB:n versiota 10.4.3 SQL-kielen syntaksissa**
+
+[`CREATE DATABASE`](#create-database--komennolla-luodaan-uusi-tietokanta) - luodaan uusi tietokanta<br>
+[`CREATE TABLE`](#create-table--komennolla-luodaan-uusi-taulu-tietokantaan) - luodaan uusi taulukko<br>
+
+<br>
 
 ---
 
 <br>
 
-`CREATE DATABASE` -komennolla luodaan uusi tietokanta.
+### `CREATE DATABASE` -komennolla luodaan uusi tietokanta.
 ```SQL
 CREATE DATABASE <tietokannan nimi>;
 ```
@@ -102,7 +105,7 @@ SHOW DATABASES;
 
 <br>
 
-`CREATE TABLE` -komennolla luodaan uusi taulu tietokantaan.
+### `CREATE TABLE` -komennolla luodaan uusi taulu tietokantaan.
 ```SQL
 CREATE TABLE <taulukon nimi> (<sarake1> <tietomuoto>, <sarake2> <tietomuoto>, ...);
 ```
@@ -164,7 +167,7 @@ SHOW TABLES;
 
 <br>
 
-`DROP TABLE` -komennolla poistetaan taulu kokonaan. 
+### `DROP TABLE` -komennolla poistetaan taulu kokonaan. 
 **Myös kaikki taulukon tiedot katoavat!**
 ```SQL
 DROP TABLE <taulukko>;
@@ -176,7 +179,7 @@ DROP TABLE <taulukko>;
 
 <br>
 
-`ALTER TABLE` -komennolla voi muokata jo luotujen taulujen sarakkeita.
+### `ALTER TABLE` -komennolla voi muokata jo luotujen taulujen sarakkeita.
 ```SQL
 ALTER TABLE <taulun nimi> (ADD | CHANGE | MODIFY | ADD) <sarake> [<parametrit>];
 ```
@@ -225,7 +228,7 @@ DESCRIBE kayttajat;
 
 <br>
 
-`INSERT INTO` -komennolla lisätään tietoja jo luotuun tietokantaan.
+### `INSERT INTO` -komennolla lisätään tietoja jo luotuun tietokantaan.
 ```SQL
 INSERT INTO <taulukko> [(sarake1, sarake2, ...)] VALUES (arvo1, arvo2, ...);
 ```
@@ -253,7 +256,7 @@ Jos et aseta sarakenimiä, tulee sinun kuitenkin asettaa arvo kaikkiin taulukon 
 
 <br>
 
-`SELECT` -komennolla haetaan tietoja tietokannan tauluista.
+### `SELECT` -komennolla haetaan tietoja tietokannan tauluista.
 
 ```SQL
 SELECT <sarake1>[, <sarake2>, ...] FROM <taulukko>;
@@ -289,7 +292,8 @@ SELECT id, sukunimi FROM kayttajat;
 
 <br>
 
-`WHERE` -argumantilla valitaan tiettyjä arvoja tietokannasta. `WHERE` -argumenttia ei voi käyttää yksistään, mutta sitä käytetään monessa eri komennossa tiedon valitsemista varten.
+### `WHERE` -argumantilla valitaan tiettyjä arvoja tietokannasta. 
+`WHERE` -argumenttia ei voi käyttää yksistään, mutta sitä käytetään monessa eri komennossa tiedon valitsemista varten.
 ```SQL
 ... WHERE <ehto>;
 ```
@@ -360,12 +364,30 @@ SELECT id, nimi FROM kayttajat WHERE nimi IN ('Matti', 'Risto');
 
 <br>
 
-`UPDATE` -komennolla voidaan muokata taulukon tietueita.
+### `UPDATE` -komennolla voidaan muokata taulukon tietueita.
 ```SQL
 UPDATE <taulukko> SET <sarake1> = <arvo>, <sarake2> = <arvo>, ... WHERE <ehto>;
 ```
 
+Esimerkiksi:
+```SQL
+SELECT * FROM kayttajat WHERE nimi = 'Risto';
+> id        nimi        sukunimi
+> 3         Risto       Virtanen
 
+UPDATE kayttajat SET nimi = 'Mikko', sukunimi = 'Muodonmuuttaja' WHERE nimi = 'Risto';
+> Muutettu taulukon kayttajat tietoja
+
+SELECT * FROM kayttajat;
+> id        nimi        sukunimi
+> 1         Matti       Meikäläinen
+> 2         Anna        Korhonen
+> 3         Mikko       Muodonmuuttaja
+```
+
+Voit myös muuttaa vain yhden sarakkeen tietoja.
+
+**Huom, jos WHERE -ehto osuu useampaan tietueeseen, kaikki valitut tietueet muuttuvat.**
 
 <br>
 
@@ -373,7 +395,7 @@ UPDATE <taulukko> SET <sarake1> = <arvo>, <sarake2> = <arvo>, ... WHERE <ehto>;
 
 <br>
 
-`DELETE` -komennolla poistetaan tietueita taulukosta.
+### `DELETE` -komennolla poistetaan tietueita taulukosta.
 ```SQL
 DELETE FROM <taulukko> WHERE <ehto>;
 ```
@@ -401,4 +423,41 @@ SELECT id, nimi FROM kayttajat;
 > Tähän tarkoitukseen voidaan myös käyttää komentoa `TRUNCATE TABLE <taulukko>;`.
 > 
 > `TUNCATE TABLE` -komento on tehokkaampi kun halutaan poistaa kaikki tietueet, sillä se ei käy läpi tietueita erikseen.
+
+<br>
+
+---
+
+<br>
+
+### `DROP DATABASE` -komennolla tuhotaan koko tietokanta. 
+
+**HUOM!! POISTETUN TIETOKANNAN TIETOJA ON MAHDOTON PALAUTTAA POISTON JÄLKEEN ILMAN VARMUUSKOPIOTA!**
+
+```SQL
+DROP DATABASE <tietokanta>;
+```
+
+Esimerkiksi:
+```SQL
+SHOW DATABASES;
+> tietokannat
+> vanha_tietokanta
+> uusi_tietokanta
+
+DROP DATABASE uusi_tietokanta;
+> poistettu tietokanta uusi_tietokanta
+
+SHOW DATABASES;
+> tietokannat
+> vanha_tietokanta
+```
+
+<br>
+
+---
+
+<br>
+
+**MariaDB:n tässä versiossa, on mahdotonta luoda varmuuskopiota SQL-päätteen kautta. Varmuuskopio täytyy luoda käyttäen mysqldump.exe -sovellusta MariaDB:n tiedostosijainnissa.**
 
