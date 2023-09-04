@@ -37,7 +37,7 @@ SELECT * FROM kayttajat WHERE kayttaja_nimi = 'matti';
 
 >Huom, kun luodaan uusia tietokantaobjekteja, niiden nimien tulee olla erilaisia kuin saman tason muut objektit.
 >
->esim: jos halutaan luoda tietokanta `TietoKanta`, huomataan että SQL antaa virheen `'Database exists'`, koska tietokanta `tietokanta` on jo luotu. 
+>esim: jos halutaan luoda tietokanta `TietoKanta`, huomataan että SQL antaa virheen `'Database already exists'`, koska tietokanta `tietokanta` on jo luotu. 
 >Toisaalta jos luodaan uusi taulu tietokantaan nimellä, joka on käytössä toisessa tietokannassa, SQL ei anna virheitä koska kyseistä nimeä ei vielä ole käytössä samassa tietokannassa.
 
 <br>SQL erottelee komennot toisistaan puolipisteiden avulla:
@@ -365,7 +365,25 @@ SELECT id, nimi FROM kayttajat WHERE nimi IN ('Matti', 'Risto');
 UPDATE <taulukko> SET <sarake1> = <arvo>, <sarake2> = <arvo>, ... WHERE <ehto>;
 ```
 
+Esimerkiksi:
+```SQL
+SELECT * FROM kayttajat WHERE nimi = 'Risto';
+> id        nimi        sukunimi
+> 3         Risto       Virtanen
 
+UPDATE kayttajat SET nimi = 'Mikko', sukunimi = 'Muodonmuuttaja' WHERE nimi = 'Risto';
+> Muutettu taulukon kayttajat tietoja
+
+SELECT * FROM kayttajat;
+> id        nimi        sukunimi
+> 1         Matti       Meikäläinen
+> 2         Anna        Korhonen
+> 3         Mikko       Muodonmuuttaja
+```
+
+Voit myös muuttaa vain yhden sarakkeen tietoja.
+
+**Huom, jos WHERE -ehto osuu useampaan tietueeseen, kaikki valitut tietueet muuttuvat.**
 
 <br>
 
@@ -402,3 +420,39 @@ SELECT id, nimi FROM kayttajat;
 > 
 > `TUNCATE TABLE` -komento on tehokkaampi kun halutaan poistaa kaikki tietueet, sillä se ei käy läpi tietueita erikseen.
 
+<br>
+
+---
+
+<br>
+
+`DROP DATABASE` -komennolla tuhotaan koko tietokanta. 
+
+**HUOM!! POISTETUN TIETOKANNAN TIETOJA ON MAHDOTON PALAUTTAA POISTON JÄLKEEN ILMAN VARMUUSKOPIOTA!**
+
+```SQL
+DROP DATABASE <tietokanta>;
+```
+
+Esimerkiksi:
+```SQL
+SHOW DATABASES;
+> tietokannat
+> vanha_tietokanta
+> uusi_tietokanta
+
+DROP DATABASE uusi_tietokanta;
+> poistettu tietokanta uusi_tietokanta
+
+SHOW DATABASES;
+> tietokannat
+> vanha_tietokanta
+```
+
+<br>
+
+---
+
+<br>
+
+**MariaDB:n tässä versiossa, on mahdotonta luoda varmuuskopiota SQL-päätteen kautta. Varmuuskopio täytyy luoda käyttäen mysqldump.exe -sovellusta MariaDB:n tiedostosijainnissa.**
