@@ -142,7 +142,7 @@ AUTO_INCREMENT
 #aina uniikki, ei samanlaisia arvoja sarakkeessa
 UNIQUE
 
-#oletusarvo'
+#oletusarvo
 DEFAULT
 ```
 
@@ -461,3 +461,39 @@ SHOW DATABASES;
 
 **MariaDB:n tässä versiossa, on mahdotonta luoda varmuuskopiota SQL-päätteen kautta. Varmuuskopio täytyy luoda käyttäen mysqldump.exe -sovellusta MariaDB:n tiedostosijainnissa.**
 
+<br>
+
+---
+
+<br>
+
+`DROP DATABASE` -komennolla tuhotaan koko tietokanta. 
+
+**HUOM!! POISTETUN TIETOKANNAN TIETOJA ON MAHDOTON PALAUTTAA POISTON JÄLKEEN ILMAN VARMUUSKOPIOTA!**
+
+```SQL
+DROP DATABASE <tietokanta>;
+```
+
+Esimerkiksi:
+```SQL
+SHOW DATABASES;
+> tietokannat
+> vanha_tietokanta
+> uusi_tietokanta
+
+DROP DATABASE uusi_tietokanta;
+> poistettu tietokanta uusi_tietokanta
+
+SHOW DATABASES;
+> tietokannat
+> vanha_tietokanta
+```
+
+<br>
+
+---
+
+<br>
+
+**MariaDB:n tässä versiossa, on mahdotonta luoda varmuuskopiota SQL-päätteen kautta. Varmuuskopio täytyy luoda käyttäen mysqldump.exe -sovellusta MariaDB:n tiedostosijainnissa.**
