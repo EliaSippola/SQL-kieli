@@ -570,10 +570,3 @@ DROP DATABASE uusi_tietokanta;
 SHOW DATABASES;
 > tietokannat
 > vanha_tietokanta
-```
-
-<br>
-
----
-
-<br>
