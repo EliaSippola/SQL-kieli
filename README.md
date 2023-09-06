@@ -21,8 +21,6 @@
 
 SQL-kielen CLI (command line interface) vaatii yhteyden SQL-palvelimelle. XAMPP -ympäristössä palvelin toimii paikallisesti, joten siihen yhdistäminen on helppoa.
 
-### SQL-kielen käyttäminen terminaalissa
-
 1. Varmista että MySQL -moduuli on käynnissä
 
 2. Avaa komentokehoite hakemalla sovellusta "cmd" windowsin hausta
@@ -40,7 +38,9 @@ SQL-kielen CLI (command line interface) vaatii yhteyden SQL-palvelimelle. XAMPP 
   `mysql.exe -u <käyttäjänimi> -p`<br>
   tällöin ohjelma kysyy salasanaa kun yrität kirjautua.
 
-### Tietokantojen varmuuskopiointi ja tuonti
+## Tietokantojen varmuuskopiointi ja tuonti
+
+### varmuuskopiointi
 
 Voit varmuuskopioida tietokantoja sovelluksella `mysqldump.exe`
 
@@ -52,9 +52,17 @@ mysqldump.exe -u <käyttäjänimi> -p <tietokanta> > <polku><tiedosto>
 Esimerkiksi
 ```powershell
 #varmuuskopioidaan tietokanta uusi_db käyttäjän työpydälle
-#käytetään käyttäjänimeä root, jolla ei normaalisti ole salasanaa, siksi salasanan kehotusta "-p" ei travitse käyttää
+#käytetään käyttäjänimeä root, jolla ei normaalisti ole salasanaa
+#siksi salasanan kehotusta "-p" ei tarvitse käyttää
 mysqldump.exe -u root uusi_db > c:\users\kayttaja1\desktop\varmuuskopio_uusi_db.sql
 ```
+
+### tuonti
+
+Voit tuoda tietoja tietokantaan sovelluksella `mysql.exe`
+
+**Huom, tietokanta täytyy luoda ennen kuin siihen voidaan viedä tietoja. Komento ei luo uutta tietokantaa**
+
 
 
 ## SQL-kielen syntaksi
