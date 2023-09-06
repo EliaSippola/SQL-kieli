@@ -53,6 +53,17 @@ CREATE TABLE kayttajat (
     sukunimi varchar(30) NOT NULL
 );
 ```
+
+Kommentit SQL kielessä erotellaan merkein `--` ja `/* ... */`:
+```SQL
+-- Tämä on lyhyt kommentti
+
+/* Tämä kommentti
+jatkuu pidemmälle */
+```
+
+Yhden rivin kommentin eteen laitetaan kaksi viivaa `--`, ja pidemmän kommentin alkuun `/*` ja loppuun `*/`. SQL ei käy läpi kommenteissa olevaa tekstiä, joten sitä ei suoriteta tietokannassa.
+
 <br>
 
 ## Yleisimpiä SQL-kielen komentoja
