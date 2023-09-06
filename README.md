@@ -81,6 +81,7 @@ Tietokannan luominen tapahtuu [`CREATE DATABASE`](#create-database--komennolla-l
 
 Esimerkiksi:
 ```powershell
+-- Tuodaan tiedot tietokantaan uusi_db tiedostosta varmuuskopio_uusi_db.sql joka on käyttäjän työpöydällä
 mysql.exe -u root uusi_db < c:\users\kayttaja1\desktop\varmuuskopio_uusi_db.sql
 ```
 
@@ -265,7 +266,7 @@ SHOW TABLES;
 <br>
 
 ### `DROP TABLE` -komennolla poistetaan taulu kokonaan. 
-**Myös kaikki taulukon tiedot katoavat!**
+**Myös kaikki taulukon tiedot katoavat! Taulukon tietoja ei voi palauttaa poistamisen jälkeen.**
 ```SQL
 DROP TABLE <taulukko>;
 ```
@@ -398,7 +399,7 @@ SELECT id, sukunimi FROM kayttajat;
 
 <br>
 
-### `WHERE` -argumantilla valitaan tiettyjä arvoja tietokannasta. 
+### `WHERE` -argumentilla valitaan tiettyjä arvoja tietokannasta. 
 `WHERE` -argumenttia ei voi käyttää yksistään, mutta sitä käytetään monessa eri komennossa tiedon valitsemista varten.
 ```SQL
 ... WHERE <ehto>;
@@ -514,6 +515,8 @@ Voit myös muuttaa vain yhden sarakkeen tietoja.
 DELETE FROM <taulukko> WHERE <ehto>;
 ```
 
+**Huom, poistettuja tietueita ei voi palauttaa poiston jälkeen**
+
 Esimerkiksi:
 ```SQL
 -- poistetaan kaikki tietueet joissa nimenä on "Anna"
@@ -538,7 +541,7 @@ SELECT id, nimi FROM kayttajat;
 > ```
 > Tähän tarkoitukseen voidaan myös käyttää komentoa `TRUNCATE TABLE <taulukko>;`.
 > 
-> `TUNCATE TABLE` -komento on tehokkaampi kun halutaan poistaa kaikki tietueet, sillä se ei käy läpi tietueita erikseen.
+> `TRUNCATE TABLE` -komento on tehokkaampi kun halutaan poistaa kaikki tietueet, sillä se ei käy läpi tietueita erikseen.
 
 <br>
 
