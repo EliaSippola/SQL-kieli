@@ -421,6 +421,7 @@ SELECT * FROM kayttajat WHERE nimi = 'Risto';
 > id        nimi        sukunimi
 > 3         Risto       Virtanen
 
+-- muutetaan käyttäjän risto nimeä ja sukunimeä
 UPDATE kayttajat SET nimi = 'Mikko', sukunimi = 'Muodonmuuttaja' WHERE nimi = 'Risto';
 > Muutettu taulukon kayttajat tietoja
 
@@ -448,6 +449,7 @@ DELETE FROM <taulukko> WHERE <ehto>;
 
 Esimerkiksi:
 ```SQL
+-- poistetaan kaikki tietueet joissa nimenä on "Anna"
 DELETE FROM kayttajat WHERE name = 'Anna';
 > poistettu 'Anna' taulukosta kayttajat
 
@@ -459,6 +461,7 @@ SELECT id, nimi FROM kayttajat;
 
 > **Huom! jos et laita komentoon `WHERE` -argumenttia, komento poistaa kaikki tietueet**
 > ```SQL
+> -- poistetaan kaikki taulukon tietueet
 > DELETE FROM kayttajat;
 > > taulukon kayttajat kaikki tietueet poistettu
 >
@@ -491,6 +494,7 @@ SHOW DATABASES;
 > vanha_tietokanta
 > uusi_tietokanta
 
+-- poistetaan tietokanta
 DROP DATABASE uusi_tietokanta;
 > poistettu tietokanta uusi_tietokanta
 
