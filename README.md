@@ -59,8 +59,17 @@ CREATE TABLE kayttajat (
 
 **Jotkin komennot eivät välttämättä toimi kaikilla versioilla. Tässä ohjeessa on käytetty MariaDB:n versiota 10.4.3 SQL-kielen syntaksissa**
 
-[`CREATE DATABASE`](#create-database--komennolla-luodaan-uusi-tietokanta) - luodaan uusi tietokanta<br>
-[`CREATE TABLE`](#create-table--komennolla-luodaan-uusi-taulu-tietokantaan) - luodaan uusi taulukko<br>
+[`CREATE DATABASE`](#create-database--komennolla-luodaan-uusi-tietokanta) - Luodaan uusi tietokanta<br>
+[`CREATE TABLE`](#create-table--komennolla-luodaan-uusi-taulu-tietokantaan) - Luodaan uusi taulukko<br>
+[`DROP TABLE`](#drop-table--komennolla-poistetaan-taulu-kokonaan) - Poistetaan taulukko kokonaan **(Poistaa myös kaikki tiedot)**<br>
+[`ALTER TABLE`](#alter-table--komennolla-voi-muokata-jo-luotujen-taulujen-sarakkeita) - Muokataan taulukkoa<br>
+[`INSERT INTO`](#insert-into--komennolla-lisätään-tietoja-jo-luotuun-tietokantaan)- Lisätään tietoja taulukkoon<br>
+[`SELECT`](#select--komennolla-haetaan-tietoja-tietokannan-tauluista) - Haetaan tietoja taulukosta<br>
+[`WHERE`](#where--argumantilla-valitaan-tiettyjä-arvoja-tietokannasta) - Annetaan ehtoja komennoille<br>
+[`UPDATE`](#update--komennolla-voidaan-muokata-taulukon-tietueita) - Muokataan tietoja taulukossa<br>
+[`DELETE`](#delete--komennolla-poistetaan-tietueita-taulukosta) - Poistetaan tietoja taulukosta<br>
+[`DROP DATABASE`] - Poistetaan tietokanta **(Ei voi peruuttaa)**
+
 
 <br>
 
@@ -466,34 +475,3 @@ SHOW DATABASES;
 ---
 
 <br>
-
-`DROP DATABASE` -komennolla tuhotaan koko tietokanta. 
-
-**HUOM!! POISTETUN TIETOKANNAN TIETOJA ON MAHDOTON PALAUTTAA POISTON JÄLKEEN ILMAN VARMUUSKOPIOTA!**
-
-```SQL
-DROP DATABASE <tietokanta>;
-```
-
-Esimerkiksi:
-```SQL
-SHOW DATABASES;
-> tietokannat
-> vanha_tietokanta
-> uusi_tietokanta
-
-DROP DATABASE uusi_tietokanta;
-> poistettu tietokanta uusi_tietokanta
-
-SHOW DATABASES;
-> tietokannat
-> vanha_tietokanta
-```
-
-<br>
-
----
-
-<br>
-
-**MariaDB:n tässä versiossa, on mahdotonta luoda varmuuskopiota SQL-päätteen kautta. Varmuuskopio täytyy luoda käyttäen mysqldump.exe -sovellusta MariaDB:n tiedostosijainnissa.**
