@@ -217,34 +217,40 @@ ALTER TABLE <taulun nimi> (ADD | CHANGE | MODIFY | ADD) <sarake> [<parametrit>];
 
 - `ADD` -parametrilla lisätään tauluun lisää sarakkeita:
 ```SQL
+-- lisätään sarake ika
 ALTER TABLE kayttajat ADD ika int(6) NOT NULL;
 ```
 
 - `MODIFY` -parametrilla muutetaan sarakkeen parametrejä:
 ```SQL
-ALTER TABLE kayttajat MODIFY asiakas_id int(4) NOT NULL;
+-- muokataan sarakkeen ika maksimipituutta pienemmäksi
+ALTER TABLE kayttajat MODIFY asiakas_id int(3) NOT NULL;
 ```
 *Kun käytetään `MODIFY` -parametriä, täytyy asettaa kaikki parametrit uudelleen sarakkeeseen.*
 
 - `CHANGE` -parametri on samanlainen kuin edellinen, mutta sillä voi muokata nimeä:
 ```SQL
-ALTER TABLE kayttajat CHANGE ika asiakas_id int(4) NOT NULL;
+-- Muutetaan sarakkeen ika nimeä
+ALTER TABLE kayttajat CHANGE ika asiakas_id int(3) NOT NULL;
 ```
 *Samoin kuin `MODIFY` -parametrillä, `CHANGE` -parametrillä täytyy asettaa kaikki parametrit uudelleen sarakkeeseen.*
 
 > Uudemmissa versioissa nimeä pystyy vaihtamaan sarakkeen nimeä parametrilla `RENAME`:
 > ```SQL
+> -- Muutetaan sarakkeen ika nimeä
 > ALTER TABLE kayttajat RENAME ika TO asiakas_id;
 > ```
 
 - `DROP` -parametrilla poistetaan sarake taulukosta:
 ```SQL
+-- Poistetaan sarake asiakas_id
 ALTER TABLE kayttajat DROP asiakas_id;
 ```
 <br>
 
-Kun luo taulukoita, tai muokkaa taulujen sarakkeita, kannattaa tarkistaa taulujen parametrit säännöllisesti komennolla `DESCRIBE <taulukko>;` (lyhenteenä `DESC`):
+Kun luodaan taulukoita, tai muokataan taulujen sarakkeita, kannattaa tarkistaa taulujen parametrit säännöllisesti komennolla `DESCRIBE <taulukko>;` (lyhenteenä `DESC`):
 ```SQL
+-- Tarkistetaan onko taulukon sarakkeiden tiedot oikein
 DESCRIBE kayttajat;
 > nimi          tyyppi      tyhjä   Avain   Oletus  Lisää
 > id            int(6)      NO      PRI     NULL    auto_increment
@@ -265,6 +271,7 @@ INSERT INTO <taulukko> [(sarake1, sarake2, ...)] VALUES (arvo1, arvo2, ...);
 
 Esimerkiksi:
 ```SQL
+-- lisätään taulukkoon kayttajat tietueita
 INSERT INTO kayttajat (nimi, sukunimi) VALUES ('Matti', 'Meikäläinen');
 ```
 
@@ -297,6 +304,7 @@ Parametri '*' tarkoittaa kaikkia sarakkeita.
 
 Esimerkiksi:
 ```SQL
+-- Haetaan kaikki tietueet taulukosta kayttajat
 SELECT * FROM kayttajat;
 
 > id        nimi        sukunimi
@@ -309,6 +317,7 @@ Komento palauttaa kaikki tiedot `kayttajat`, taulukosta.
 
 Komennolla voi myös hakea vain tiettyjä sarakkeita:
 ```SQL
+-- Haetaan sarakkeiden id ja sukunimi tiedot taulukota kayttajat
 SELECT id, sukunimi FROM kayttajat;
 
 > id        sukunimi
@@ -330,6 +339,7 @@ SELECT id, sukunimi FROM kayttajat;
 
 Esimerkiksi:
 ```SQL
+-- Haetaan kaikki tietueet taulukosta kayttajat, missä id on 2
 SELECT * FROM kayttajat WHERE id = 2;
 > id        nimi        sukunimi
 > 2         Anna        Korhonen
@@ -347,6 +357,7 @@ Lisäksi komennolla on muutama ehto joilla voi lisätä hakufunktion ominaisuuks
 
 - `BETWEEN` argumentilla saadaan tietueet tiettyjen arvojen välistä:
 ```SQL
+-- Heataan missä id on lukujen 2 ja 3 välissä
 SELECT id, nimi FROM kayttajat WHERE id BETWEEN 2 AND 3;
 > id        nimi
 > 2         Anna
@@ -356,6 +367,7 @@ Haku palauttaa kaikki tietueet joissa id on arvojen 2 ja 3 välissä.
 
 - `LIKE` argumentilla voidaan valita tietyillä merkkijonoilla alkavia, loppuvia tai tietyn merkkijonon sisältäviä arvoja:
 ```SQL
+-- Haetaan missä sukunimen kolmas kirjain on "r"
 SELECT id, sukunimi FROM kayttajat WHERE sukunimi LIKE '__r%';
 > id        sukunimi
 > 2         Korhonen
@@ -367,6 +379,7 @@ merkki `'_'` tarkoittaa mitä tahansa yhtä kirjainta, ja `'%'` mitä tahansa me
 
 - `IN` argumentilla voidaan hakea montaa eri hakuarvoa:
 ```SQL
+-- Haetaan kaikki käyttäjät nimillä matti ja risto
 SELECT id, nimi FROM kayttajat WHERE nimi IN ('Matti', 'Risto');
 > id        nimi
 > 1         Matti
@@ -376,11 +389,14 @@ SELECT id, nimi FROM kayttajat WHERE nimi IN ('Matti', 'Risto');
 > `IN` -argumenttia voi käyttää myös toisen `SELECT` -komennon yhdistämistä varten.
 > Tämä voi olla hyödyllistä kun täytyy hakea tietoja toisen taulukon avulla:
 > ```SQL
+> -- tältä näyttää taulukko ostot
 > SELECT * FROM ostot;
 > > id      tuote       ostaja
 > > 1       kattila     Risto
 > > 2       pata        Anna
 >
+> /*Haetaan kaikki käyttäjät jotka ovat ostaneet jotakin,
+> eli nimi on taulukossa ostot*/
 > SELECT * FROM kayttajat WHERE nimi IN (SELECT ostaja FROM ostot);
 > > id      nimi        sukunimi
 > > 2       Anna        Korhonen
