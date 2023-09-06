@@ -1,5 +1,17 @@
-### SQL kieli
+Tietokannan luominen ja muokkaaminen SQL-kielellä
+===
 
--kuvia tietokannan GUI:sta
+
+
+
+
+
+<details>
+<summary>Hello Wold</summary>
+Pöö!!
+</details>
+
+
+-kuvia tietokannan GUI:sta<br>
 -käyttäjän tekeminen
--
+
