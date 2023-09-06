@@ -54,15 +54,19 @@ CREATE TABLE kayttajat (
 );
 ```
 
-Kommentit SQL kielessä erotellaan merkein `--` ja `/* ... */`:
+> **Huom! Ääkköset eivät välttämättä toimi kaikissa tietokannoissa automaattisesti, joten niiden käyttöä kannattaa välttää.**
+
+Kommentit SQL kielessä erotellaan merkein `-- ` ja `/* ... */`:
 ```SQL
 -- Tämä on lyhyt kommentti
 
-/* Tämä kommentti
-jatkuu pidemmälle */
+/*Tämä kommentti
+jatkuu pidemmälle*/
 ```
 
-Yhden rivin kommentin eteen laitetaan kaksi viivaa `--`, ja pidemmän kommentin alkuun `/*` ja loppuun `*/`. SQL ei käy läpi kommenteissa olevaa tekstiä, joten sitä ei suoriteta tietokannassa.
+Huomaa välilyonti viivojen jälkeen: "`-- `".
+
+Yhden rivin kommentin eteen laitetaan kaksi viivaa `-- `, ja pidemmän kommentin alkuun `/*` ja loppuun `*/`. SQL ei käy läpi kommenteissa olevaa tekstiä, joten sitä ei suoriteta tietokannassa.
 
 <br>
 
@@ -96,9 +100,11 @@ Kun käytetään CLI (Command Line Interface) -päätettä, luodun tietokannan v
 
 Esimerkiksi:
 ```SQL
+-- luodaan uusi tietokanta "uusi_tietokanta"
 CREATE DATABASE uusi_tietokanta;
 > luotiin tietokanta 'uusi_tietokanta'
 
+-- tarkistetaan onnistuiko tietokannan luonti
 SHOW DATABASES;
 > tietokannat:
 > vanha_tietokanta
@@ -113,10 +119,11 @@ SHOW DATABASES;
 >```
 >Käytä komentoa `USE <tietokanta>;` valitaksesi tietokannan.
 >```SQL
+> -- valitaan uusi_tietokanta
 > MariaDB [(none)]> USE uusi_tietokanta;
 > > tietokannaksi valittu 'uusi_tietokanta'
 >
-> MariaDB [uusi_tietokanta]>
+> MariaDB [uusi_tietokanta]> ...
 >```
 
 <br>
@@ -136,6 +143,7 @@ CREATE TABLE <taulukon nimi> (<sarake1> <tietomuoto>, <sarake2> <tietomuoto>, ..
 
 Esimerkiksi:
 ```SQL
+-- luodaan taulukko "postaukset"
 CREATE TABLE postaukset (
     id int(6) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     otsikko varchar(40) NOT NULL UNIQUE,
@@ -148,26 +156,27 @@ CREATE TABLE postaukset (
 Tiedostomuotojen lisäksi sarakkeille annetaan muitakin parametreja.\
 Näistä yleisimpiä on:
 ```SQL
-#Pääavain, eli uniikki arvo kaikille tietueille
-#tämän avulla voidaan tunnistaa yksittäiset tietueet toisistaan
-#Pääavain on pakko asettaa kaikkiin taulukoihin
+/*Pääavain, eli uniikki arvo kaikille tietueille
+tämän avulla voidaan tunnistaa yksittäiset tietueet toisistaan
+Pääavain on pakko asettaa kaikkiin taulukoihin*/
 PRIMARY KEY
 
-#ei saa olla tyhjä
+-- ei saa olla tyhjä
 NOT NULL
 
-#lisää aina yksi kun luodaan uusi tietue
+-- lisää aina yksi kun luodaan uusi tietue
 AUTO_INCREMENT
 
-#aina uniikki, ei samanlaisia arvoja sarakkeessa
+-- aina uniikki, ei samanlaisia arvoja sarakkeessa
 UNIQUE
 
-#oletusarvo
+-- oletusarvo
 DEFAULT
 ```
 
 CLI -päätteessä komennolla `SHOW TABLES;` voi nähdä kaikki taulut:
 ```SQL
+-- luodaan tietokanta "kayttajat"
 CREATE TABLE kayttajat (
     id int(6) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nimi varchar(20) NOT NULL,
@@ -175,6 +184,7 @@ CREATE TABLE kayttajat (
 );
 > luotu taulukko 'kayttajat'
 
+-- tarkistetaan että taulukon tuonti onnistui
 SHOW TABLES;
 > taulukot:
 > vanha_taulukko
