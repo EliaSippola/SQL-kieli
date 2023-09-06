@@ -15,6 +15,46 @@
 - Sen avulla voidaan sekä hallinnoida tietokantoja, käyttäjiä ja niiden oikeuksia, että hakea, lisätä, muokata ja poistaa tietokantojen taulukoita ja tietueita.
 <br>
 
+## SQL-kielen käyttäminen komentokehoitteessa
+
+*Tämä ohje koskee SQL-kielen käyttämistä XAMPP -ympäristössä. Toimintatavat ja komennot saattavat olla erilaisia muissa ympäristöissä*
+
+SQL-kielen CLI (command line interface) vaatii yhteyden SQL-palvelimelle. XAMPP -ympäristössä palvelin toimii paikallisesti, joten siihen yhdistäminen on helppoa.
+
+### SQL-kielen käyttäminen terminaalissa
+
+1. Varmista että MySQL -moduuli on käynnissä
+
+2. Avaa komentokehoite hakemalla sovellusta "cmd" windowsin hausta
+- voit käyttää myös VSCoden terminaalia, tai esimerkiksi PowerShelliä. Tämän ohjeen komennot on toteutettu windowsin CDM.exe sovelluksessa, joten komentojen syntaksi saattaa olla erilainen
+
+3. käytä komentoa cd siirtyäksesi polkuun `c:\xampp\mysql\bin`
+- komennon syntaksi on `cd <polku | kansio>`
+- XAMPP -ohjelma asentuu yleensä C:n juureen. Tällöin komento on `cd c:\xampp\mysql\bin`
+- pääset levyn juureen komennolla `cd /`
+- voit siirtyä taaksepäin komennolla `cd ..`
+
+4. avaa SQL -pääte sovelluksella `mysql.exe`
+- kirjoita komento `mysql.exe -u root`
+- jos olet asettanut "root" käyttäjälle salasanan, käytä komentoa <br>
+  `mysql.exe -u <käyttäjänimi> -p`<br>
+  tällöin ohjelma kysyy salasanaa kun yrität kirjautua.
+
+### Tietokantojen varmuuskopiointi ja tuonti
+
+Voit varmuuskopioida tietokantoja sovelluksella `mysqldump.exe`
+
+Varmuuskopiointi toimii näin:
+```cmd
+mysqldump.exe -u <käyttäjänimi> -p <tietokanta> > <polku><tiedosto>
+```
+
+Esimerkiksi
+```cmd
+#varmuuskopioidaan tietokanta uusi_db käyttäjän työpydälle
+#käytetään käyttäjänimeä root, jolla ei normaalisti ole salasanaa, siksi salasanan kehotusta "-p" ei travitse käyttää
+mysqldump.exe -u root uusi_db > c:\users\kayttaja1\desktop\varmuuskopio_uusi_db.sql
+```
 
 
 ## SQL-kielen syntaksi
