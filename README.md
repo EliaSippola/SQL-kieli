@@ -142,6 +142,8 @@ Yhden rivin kommentin eteen laitetaan kaksi viivaa `-- `, ja pidemmän kommentin
 
 **Jotkin komennot eivät välttämättä toimi kaikilla versioilla. Tässä ohjeessa on käytetty MariaDB:n versiota 10.4.3 SQL-kielen syntaksissa**
 
+*Kaikkien komentovastausten muoto on vain esimerkki, oikean haun tulokset näyttävät erilaisilta.*
+
 [`CREATE DATABASE`](#create-database--komennolla-luodaan-uusi-tietokanta) - Luodaan uusi tietokanta<br>
 [`CREATE TABLE`](#create-table--komennolla-luodaan-uusi-taulu-tietokantaan) - Luodaan uusi taulukko<br>
 [`DROP TABLE`](#drop-table--komennolla-poistetaan-taulu-kokonaan) - Poistetaan taulukko kokonaan **(Ei voi peruuttaa, poistaa myös kaikki tiedot)**<br>
@@ -150,7 +152,7 @@ Yhden rivin kommentin eteen laitetaan kaksi viivaa `-- `, ja pidemmän kommentin
 [`SELECT`](#select--komennolla-haetaan-tietoja-tietokannan-tauluista) - Haetaan tietoja taulukosta<br>
 [`WHERE`](#where--argumantilla-valitaan-tiettyjä-arvoja-tietokannasta) - Annetaan ehtoja komennoille<br>
 [`UPDATE`](#update--komennolla-voidaan-muokata-taulukon-tietueita) - Muokataan tietoja taulukossa<br>
-[`DELETE`](#delete--komennolla-poistetaan-tietueita-taulukosta) - Poistetaan tietoja taulukosta<br>
+[`DELETE`](#delete--komennolla-poistetaan-tietueita-taulukosta) - Poistetaan tietoja taulukosta **(Ei voi peruuttaa)**<br>
 [`DROP DATABASE`](#drop-database--komennolla-tuhotaan-koko-tietokanta) - Poistetaan tietokanta **(Ei voi peruuttaa)**
 
 
@@ -178,7 +180,6 @@ SHOW DATABASES;
 > vanha_tietokanta
 > uusi_tietokanta
 ```
-*kaikkien vastausten muoto on vain esimerkki, oikean haun tulokset näyttävät erilaisilta.*
 
 > Huom, suurin osa komennoista joissa työskennellään tietokannassa ei toimi CLI -päätteessä ilman että tietokanta on valittu.\
 > Valitun tietokannan näkee useimmiten CLI -päätteestä:
