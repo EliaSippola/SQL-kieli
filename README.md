@@ -550,6 +550,8 @@ SELECT id, nimi FROM kayttajat;
 
 **HUOM!! POISTETUN TIETOKANNAN TIETOJA ON MAHDOTON PALAUTTAA POISTON JÄLKEEN ILMAN VARMUUSKOPIOTA!**
 
+[Ohje varmuuskopiointiin](#varmuuskopiointi)
+
 ```SQL
 DROP DATABASE <tietokanta>;
 ```
