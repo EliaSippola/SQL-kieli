@@ -1,8 +1,9 @@
 # SQL-kieli
 
-*Tiedot on kerätty suurimmilta osin [w3schoolin SQL-sivuilta](https://www.w3schools.com/sql/default.asp).*
-
-*Ohjeessa käytetyn XAMPP-ympäristön voi asentaa ilmaiseksi [täältä](https://www.apachefriends.org/download.html).*
+*Tiedot on kerätty suurimmilta osin [w3schoolin SQL-sivuilta](https://www.w3schools.com/sql/default.asp).*<br>
+*Ohjeessa käytetyn XAMPP-ympäristön voi asentaa ilmaiseksi [täältä](https://www.apachefriends.org/download.html).*<br>
+*Ohjeessa käytetyn SQL-palvelimen arkkitehtuurina on MariaDB, jotkin komennot saattavat antaa virheilmoituksen toisilla SQL-palvelimilla*<br>
+*Kaikki ohjeessa näytetyt komennot pitäisi olla testattu virheiden varalta*
 
 
 ### Mikä on SQL-kieli
