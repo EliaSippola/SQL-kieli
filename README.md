@@ -38,9 +38,14 @@ SQL-kielen CLI (command line interface) vaatii yhteyden SQL-palvelimelle. XAMPP 
 - voit siirtyä taaksepäin komennolla `cd ..`
 
 4. avaa SQL -pääte sovelluksella `mysql.exe`
-- kirjoita komento `mysql.exe -u root`
-- jos olet asettanut "root" käyttäjälle salasanan, käytä komentoa <br>
-  `mysql.exe -u <käyttäjänimi> -p`<br>
+- kirjoita komento 
+  ```powershell
+  mysql.exe -u root
+  ```
+- jos olet asettanut "root" käyttäjälle salasanan, käytä komentoa
+  ```powershell
+  mysql.exe -u <käyttäjänimi> -p
+  ```
   tällöin ohjelma kysyy salasanaa kun yrität kirjautua sisään.
 
 ## Tietokantojen varmuuskopiointi ja tuonti
