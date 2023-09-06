@@ -575,11 +575,3 @@ SHOW DATABASES;
 ---
 
 <br>
-
-**MariaDB:n tässä versiossa, on mahdotonta luoda varmuuskopiota SQL-päätteen kautta. Varmuuskopio täytyy luoda käyttäen mysqldump.exe -sovellusta MariaDB:n tiedostosijainnissa.**
-
-<br>
-
----
-
-<br>
