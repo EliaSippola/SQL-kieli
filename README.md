@@ -36,7 +36,7 @@ SQL-kielen CLI (command line interface) vaatii yhteyden SQL-palvelimelle. XAMPP 
 - kirjoita komento `mysql.exe -u root`
 - jos olet asettanut "root" käyttäjälle salasanan, käytä komentoa <br>
   `mysql.exe -u <käyttäjänimi> -p`<br>
-  tällöin ohjelma kysyy salasanaa kun yrität kirjautua.
+  tällöin ohjelma kysyy salasanaa kun yrität kirjautua sisään.
 
 ## Tietokantojen varmuuskopiointi ja tuonti
 
@@ -61,9 +61,18 @@ mysqldump.exe -u root uusi_db > c:\users\kayttaja1\desktop\varmuuskopio_uusi_db.
 
 Voit tuoda tietoja tietokantaan sovelluksella `mysql.exe`
 
+```powershell
+mysql.exe -u <käyttäjänimi> -p <tietokanta> < <tiedostopolku>
+```
+
 **Huom, tietokanta täytyy luoda ennen kuin siihen voidaan viedä tietoja. Komento ei luo uutta tietokantaa**
 
+Tietokannan luominen tapahtuu [`CREATE DATABASE`](#create-database--komennolla-luodaan-uusi-tietokanta) -komennolla CLI-päätteessä
 
+Esimerkiksi:
+```powershell
+mysql.exe -u root uusi_db < c:\users\kayttaja1\desktop\varmuuskopio_uusi_db.sql
+```
 
 ## SQL-kielen syntaksi
 
