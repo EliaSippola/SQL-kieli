@@ -1,5 +1,9 @@
 # SQL-kieli
 
+*Tiedot on kerätty suurimmilta osin [w3schoolin SQL-sivuilta](https://www.w3schools.com/sql/default.asp).*
+
+*Ohjeessa käytetyn XAMPP-ympäristön voi asentaa ilmaiseksi [täältä](https://www.apachefriends.org/download.html).*
+
 
 ### Mikä on SQL-kieli
 
