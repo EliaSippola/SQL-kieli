@@ -45,12 +45,12 @@ SQL-kielen CLI (command line interface) vaatii yhteyden SQL-palvelimelle. XAMPP 
 Voit varmuuskopioida tietokantoja sovelluksella `mysqldump.exe`
 
 Varmuuskopiointi toimii näin:
-```cmd
+```powershell
 mysqldump.exe -u <käyttäjänimi> -p <tietokanta> > <polku><tiedosto>
 ```
 
 Esimerkiksi
-```cmd
+```powershell
 #varmuuskopioidaan tietokanta uusi_db käyttäjän työpydälle
 #käytetään käyttäjänimeä root, jolla ei normaalisti ole salasanaa, siksi salasanan kehotusta "-p" ei travitse käyttää
 mysqldump.exe -u root uusi_db > c:\users\kayttaja1\desktop\varmuuskopio_uusi_db.sql
