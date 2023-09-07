@@ -145,6 +145,15 @@ Käytä `utf8mb4` -merkistöä, ja aseta järjestykseksi ruotsi (swedish)
 ></details>
 <br>
 
+Voit tarkistaa tietokannan käyttämän merkistön komennoilla:
+```SQL
+-- USE <tietokanta>;
+USE uusi_db;
+
+SELECT @@character_set_database, @@collation_database;
+```
+![merkistön tarkistus](assets/images/merkiston-tarkistus.png)
+
 ><details>
 ><summary>Koodi</summary>
 ><br>
@@ -156,15 +165,35 @@ Käytä `utf8mb4` -merkistöä, ja aseta järjestykseksi ruotsi (swedish)
 ></details>
 <br>
 
-Voit tarkistaa tietokannan käyttämän merkistön komennoilla:
+### 2.3 Luodaan tietokannalle käyttäjä
+
+**Tietokantaa käyttäessä kannattaa välttää `root` -käyttäjän käyttämistä, sillä jos tekee vahingossa jonkin muutoksen, voi sen seuraukset olla laajat. Luodaan juuri luodulle tietokannalle käyttäjä joka ei voi muokata muita tietokantoja.**
+
+**`root` -käyttäjän tulisi olla disabloitu aina, kun palvelin on yhteydessä internettiin. Sen sijasta tulisi käyttää `admin` -käyttäjää jolla on salasana.**
+
+Käytetään komentoa `CREATE USER` ja luodaan käyttäjä `uusi_db_kayttaja` salasanalla `Kissa123`.
+
+komennon muoto on:
 ```SQL
--- USE <tietokanta>;
-USE uusi_db;
-
-SELECT @@character_set_database, @@collation_database;
+CREATE USER <käyttäjänimi>@localhost IDENTIFIED BY <salasana>;
 ```
-![merkistön tarkistus](assets/images/merkiston-tarkistus.png)
 
+voit nähdä kaikki käyttäjät komennolla:
+```SQL
+SELECT host, user FROM mysql.user;
+```
+![käyttäjän luominen](assets/images/kayttajan-luominen.png)
+
+><details>
+><summary>Koodi</summary>
+><br>
+>
+> ```SQL
+> CREATE USER uusi_db_kayttaja@localhost IDENTIFIED BY 'Kissa123';
+> ```
+>
+></details>
+<br>
 
 
 
