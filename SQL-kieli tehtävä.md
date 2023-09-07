@@ -14,41 +14,42 @@ Tietokannan luominen ja muokkaaminen SQL-kielellä CLI (*Command Line Interface*
 ### 1.1 Avaa CMD, ja siirry polkuun `\xampp\mysql\bin`<br>
 XAMPP on useimmiten asennettu aseman `C:` juureen
 
-<details>
-<summary>Vihje terminaalissa siirtymiseen</summary>
-<br>
-
+> <details>
+> <summary>Vihje terminaalissa siirtymiseen</summary>
+> <br>
+>
 > Käytä komentoa `cd` siirtyäksesi kansioon `c:\xampp\mysql\bin`
 >
 > Komennolla `cd ..` voi liikkua taaksepäin kansioissa
-
-</details>
+>
+> </details>
 <br>
-
 
 **Terminaalin polun tulisi nyt näyttää tältä:**<br>
 
 ![xampp-kansion polku](assets/images/xampp-kansio.png)
 
-<details>
-<summary>Koodi</summary>
+><details>
+><summary>Koodi</summary>
+><br>
+>
+>```powershell
+>cd C:\xampp\mysql\bin
+>```
+>
+></details>
 <br>
-
-```powershell
-cd C:\xampp\mysql\bin
-```
-
-</details><br>
 
 *huom, XAMPP saattaa olla asennettuna toiseen tiedostosijaintiin*
 
 ### 1.2 
 
 
-<details>
-<summary></summary>
+><details>
+><summary></summary>
+><br>
+></details>
 <br>
-</details><br>
 
 <details>
 <summary>Hello Wold</summary>
