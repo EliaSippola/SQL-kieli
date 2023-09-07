@@ -1,5 +1,21 @@
-SQL-kielen Tehtävä
+SQL-kielen Tehtävä <!-- omit from toc -->
 ===
+
+### sisällysluettelo: <!-- omit from toc -->
+- [1 CLI -päätteen avaaminen terminaalissa](#1-cli--päätteen-avaaminen-terminaalissa)
+  - [1.1 Avaa CMD, ja siirry polkuun `\xampp\mysql\bin`](#11-avaa-cmd-ja-siirry-polkuun-xamppmysqlbin)
+  - [1.2 Käynnistä yhteys SQL-palvelimeen komentokehoitteesta.](#12-käynnistä-yhteys-sql-palvelimeen-komentokehoitteesta)
+- [2 Tietokannan ja käyttäjän luominen](#2-tietokannan-ja-käyttäjän-luominen)
+  - [2.1 Luodaan uusi tietokanta nimellä `uusi_db`](#21-luodaan-uusi-tietokanta-nimellä-uusi_db)
+  - [2.2 Asetetaan tietokannan merkistö](#22-asetetaan-tietokannan-merkistö)
+  - [2.3 Luodaan tietokannalle käyttäjä](#23-luodaan-tietokannalle-käyttäjä)
+  - [2.4 Asetetaan käyttäjän `uusi_db_kayttaja` oikeudet](#24-asetetaan-käyttäjän-uusi_db_kayttaja-oikeudet)
+  - [2.4 Kirjaudutaan sisään käyttäen luotua käyttäjää](#24-kirjaudutaan-sisään-käyttäen-luotua-käyttäjää)
+- [3 Taulukoiden luominen tietokantaan](#3-taulukoiden-luominen-tietokantaan)
+  - [3.1 Luodaan taulukko `lukijat`](#31-luodaan-taulukko-lukijat)
+  - [3.2 Luodaan taulukko `kirjat`](#32-luodaan-taulukko-kirjat)
+
+
 Tietokannan luominen ja muokkaaminen SQL-kielellä CLI (*Command Line Interface*) -päätteessä
 
 *Tehtävässä käytetään XAMPP-ympäristöä joka on ilmainen. Voit asentaa sen [tästä](https://www.apachefriends.org/download.html)*<br>
@@ -173,10 +189,17 @@ SELECT @@character_set_database, @@collation_database;
 
 Käytetään komentoa `CREATE USER` ja luodaan käyttäjä `uusi_db_kayttaja` salasanalla `Kissa123`.
 
-komennon muoto on:
-```SQL
-CREATE USER <käyttäjänimi>@localhost IDENTIFIED BY <salasana>;
-```
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> komennon muoto on:
+> ```SQL
+> CREATE USER <käyttäjänimi> IDENTIFIED BY <salasana>;
+> ```
+>
+></details>
+<br>
 
 voit nähdä kaikki käyttäjät komennolla:
 ```SQL
@@ -189,12 +212,154 @@ SELECT host, user FROM mysql.user;
 ><br>
 >
 > ```SQL
-> CREATE USER uusi_db_kayttaja@localhost IDENTIFIED BY 'Kissa123';
+> CREATE USER uusi_db_kayttaja IDENTIFIED BY 'Kissa123';
 > ```
 >
 ></details>
 <br>
 
+### 2.4 Asetetaan käyttäjän `uusi_db_kayttaja` oikeudet
+
+Käytä komentoa `GRANT ALL PRIVILEDGES`, ja anna käyttäjälle `uusi_db_kayttaja` kaikki oikeudet tietokantaan `uusi_db`
+
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> komennon muoto on 
+> ```SQL
+> GRANT ALL PRIVILEGES ON <tietokanta>.* TO <käyttäjä>@'%';
+> ```
+>
+></details>
+<br>
+
+*Komennon ei tulisi antaa yhtään virheilmoitusta*
+
+**Voit tarkistaa käyttäjän oikeudet phpMyAdminista**
+
+Avaa uusi_db -tietokanta, ja paina kohtaa käyttöoikeudet.
+
+Näkymässä tulisi olla seuraavanlainen käyttäjä:
+![phpMyAdmin käyttäjän oikeudet](assets/images/db-kayttaja.png)
+
+><details>
+><summary>Koodi</summary>
+><br>
+>
+> ```SQL
+> GRANT ALL PRIVILEDGES ON uusi_db.* TO 'uusi_db_kayttaja'@'%';
+> ```
+>
+></details>
+<br>
+
+*Voit poistaa käyttäjiä komenolla `DROP USER <käyttäjä>;`*
+
+### 2.4 Kirjaudutaan sisään käyttäen luotua käyttäjää
+
+Sulje ensin yhteys SQL-palvelimeen komennolla `exit`, sen jälkeen yhdistetään palvelimeen uudelleen käyttämällä taas `mysql.exe` -sovellusta, mutta tällä kertaa käyttäjänimi on `uusi_db_kayttaja`.
+
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> Tällä kertaa tarvitset parametria `-p`
+>
+></details>
+<br>
+
+><details>
+><summary>Koodi</summary>
+><br>
+>
+> ```powershell
+> mysql.exe -u uusi_db_kayttaja
+> > Kissa123
+> ```
+>
+></details>
+<br>
+
+*Varmista että kirjoitat salasanan oikein.*
+
+*päätteen tulisi taas näyttää samalta:*
+![pääte](assets/images/mariadb-default.png)
+
+## 3 Taulukoiden luominen tietokantaan
+
+**Ennen taulukoiden luomista tai muokkaamista, varmista että olet valinnut oikean tietokannan**
+
+Käytä komentoa
+```SQL
+USE uusi_db;
+```
+valitaksesi juuri luodun tietokannan
+
+Valittu tietokanta näkyy päätteessä:
+
+![valittu tietokanta](assets/images/tietokannan-valinta.png)
+
+### 3.1 Luodaan taulukko `lukijat`
+
+Luo taulukko nimellä `lukijat` <br>
+Taulukkoon tulee sauraavat kentät:
+
+`id` (int(6), primary key, not null, auto increment) - lukijan id<br>
+`nimi` (varchar(255), not null) - lukijan nimi<br>
+
+Käytä komentoa `CREATE TABLE`
+
+*SQL-kieli ei välitä rivinvaihdoista, käytä tätä hyväksesi.*
+
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> komennon muoto on:
+> ```SQL
+> CREATE TABLE <taulukko> (
+>    <sarake1> <argumentit>,
+>    ...
+> );
+> ```
+>
+></details>
+<br>
+
+><details>
+><summary>Vihje 2</summary>
+><br>
+>
+> argumenttien muodot:
+> ```SQL
+> NOT NULL
+> PRIMARY KEY
+> AUTO_INCREMENT
+> ```
+>
+></details>
+<br>
+
+**Komennon suorituksen jälkeen kokeillaan toimiko taulukon luonti:**
+
+Käytä komentoa `DESCRIBE TABLE <taulukko>`<br>
+Taulukon pitäisi nyt näyttää tältä:
+
+![lukijat -taulukko](assets/images/lukijat1.png)
+
+
+Lisätään vielä sarake `ika` käyttäjän iälle. Käytä sarakkeen lisäämiseen komentoa `ALTER TABLE`.
+
+
+
+### 3.2 Luodaan taulukko `kirjat`
+
+luo taulukko nimellä `kirjat` <br>
+Taulukkoon tulee ainakin seuraavat kentät:
+
+`nimi` - kirjan nimi<br>
+`luettu` - onko kirja luettu vai kesken<br>
 
 
 ><details>
