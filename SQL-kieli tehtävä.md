@@ -732,9 +732,8 @@ Taulukkoon tulisi nyt tulla näkyviin seuraavat rivit:
 
 Lukija 
 
-??<br>
-INSERT INTO lukijat (nimi, ika) SELECT lukijat.nimi FROM lukijat WHERE id = 1;
-<br>??
+<!-- testing code -->
+INSERT INTO lukijat (nimi, ika) VALUES((SELECT kirjat.nimi FROM kirjat WHERE kirjat.id = 1),1)
 
 
 
