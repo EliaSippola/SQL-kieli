@@ -16,16 +16,20 @@ SQL-kielen Tehtävä <!-- omit from toc -->
   - [3.3 Luodaan taulukko `kirjat`](#33-luodaan-taulukko-kirjat)
   - [3.3 Kokeillaan asetettuja rajoituksia](#33-kokeillaan-asetettuja-rajoituksia)
 - [4 tuodaan tietoja taulukoihin](#4-tuodaan-tietoja-taulukoihin)
+  - [4.1 Tuodaan taulukoihin tietoja tiedostosta data.sql.](#41-tuodaan-taulukoihin-tietoja-tiedostosta-datasql)
+  - [4.2 lisätään taulukkoon omia tietoja](#42-lisätään-taulukkoon-omia-tietoja)
 
 
 Tietokannan luominen ja muokkaaminen SQL-kielellä CLI (*Command Line Interface*) -päätteessä
+
+Tehtävän tarkoituksena on opettaa SQL-kielen käyttämistä CLI-ympäristössä
 
 *Tehtävässä käytetään XAMPP-ympäristöä joka on ilmainen. Voit asentaa sen [tästä](https://www.apachefriends.org/download.html)*<br>
 *Älä käytä tähän tehtävään XAMPP:in omaa visuaalista SQL-ympäristöä, vaan toteuta tehtävä kokonaan terminaalissa*
 
 *Käytä tehtävään apuna [README.md](README.md) -tiedostoa ja [w3schoolin nettisivuja](https://www.w3schools.com/sql/default.asp).*
 
-*Tehtävässä on apuna vihjeitä, ja vastauksia. Pyri tekemään tehtävä ilman vihjeitä niin pitkälle kuin pystyt*
+***Tehtävässä on apuna vihjeitä, ja vastauksia. Pyri tekemään tehtävät käyttämällä vihjeitä ja vastauksia mahdollisimman vähän.***
 
 ## 1 CLI -päätteen avaaminen terminaalissa
 
@@ -220,6 +224,8 @@ SELECT host, user FROM mysql.user;
 ></details>
 <br>
 
+*Voit poistaa käyttäjiä komenolla `DROP USER <käyttäjä>;`*
+
 ### 2.4 Asetetaan käyttäjän `uusi_db_kayttaja` oikeudet
 
 Käytä komentoa `GRANT ALL PRIVILEDGES`, ja anna käyttäjälle `uusi_db_kayttaja` kaikki oikeudet tietokantaan `uusi_db`
@@ -255,8 +261,6 @@ Näkymässä tulisi olla seuraavanlainen käyttäjä:
 >
 ></details>
 <br>
-
-*Voit poistaa käyttäjiä komenolla `DROP USER <käyttäjä>;`*
 
 ### 2.4 Kirjaudutaan sisään käyttäen luotua käyttäjää
 
@@ -589,7 +593,7 @@ INSERT INTO kirjat (nimi, luettu, sivumaara, lukija_id) VALUES ('lukematon', 0, 
 
 ## 4 tuodaan tietoja taulukoihin
 
-Tuodaan taulukoihin tietoja tiedostosta [data.sql](assets/data/data.sql).
+### 4.1 Tuodaan taulukoihin tietoja tiedostosta [data.sql](assets/data/data.sql).
 
 *Varmista että taulukot `lukijat` ja `kirjat` ovat tyhjiä ennen tietojen tuomista*\
 *Käytä komentoa `DELETE FROM <taulukko>` poistaaksesi kaikki taulukon tiedot*
@@ -637,6 +641,68 @@ Varmista että tiedot tuitiin onnistuneesti `SELECT` -komentoa käyttäen
 
 ![Kirjat - taulukon tiedot](assets/images/kirjaTiedot1.png)
 
+### 4.2 lisätään taulukkoon omia tietoja
+
+Lisätään taulukkoon vielä hiukan omia tietoja:
+
+Lisätään `lukijat` -taulukkoon käyttäjä `Tiina Tavallinen`, jonka ikä on 34.
+
+*`id` -saraketta ei ola aina pakko asettaa, sillä `PRIMARY KEY` ja `AUTO_INCREMENT` huolehtivat automaattisesti `id` -kentän täyttämisestä*
+
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> Käytä komentoa `INSERT INTO ...`
+>
+></details>
+<br>
+
+><details>
+><summary>Vihje 2</summary>
+><br>
+>
+> Komennon muoto on:
+> ```SQL
+> INSERT INTO <taulukko> [<sarakkeet>] VALUES (<tiedot>);
+> ```
+>
+></details>
+<br>
+
+Komennon jälkeen taulukossa `lukijat` tulisi olla kohta:
+
+![Tiina Tavallinen](assets/images/Tiina-Tavallinen.png)
+
+Lisätään sitten lukijalle `Tiina Tavallinen` kirjoja:
+
+> *Voit lisätä useampia tietueita kerralla lisäämällä pilkun arvojen väliin: `... VALUES (<tiedot>), (<toiset tiedot>);`*
+
+- kirja nimeltä `Tavattoman Tavalliset`
+  - kirja on luettu
+  - sivumäärä = 565
+
+<br>
+
+- kirja nimeltä `Toivottoman Tavalliset`
+  - kirja on kesken
+  - sivumäärä = 497
+
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> Luettu = 1
+> Ei luettu = 0
+>
+></details>
+<br>
+
+><details>
+><summary></summary>
+><br>
+></details>
+<br>
 
 
 ><details>
