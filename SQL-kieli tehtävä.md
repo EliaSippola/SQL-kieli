@@ -13,7 +13,8 @@ SQL-kielen Tehtävä <!-- omit from toc -->
   - [2.4 Kirjaudutaan sisään käyttäen luotua käyttäjää](#24-kirjaudutaan-sisään-käyttäen-luotua-käyttäjää)
 - [3 Taulukoiden luominen tietokantaan](#3-taulukoiden-luominen-tietokantaan)
   - [3.1 Luodaan taulukko `lukijat`](#31-luodaan-taulukko-lukijat)
-  - [3.2 Luodaan taulukko `kirjat`](#32-luodaan-taulukko-kirjat)
+  - [3.3 Luodaan taulukko `kirjat`](#33-luodaan-taulukko-kirjat)
+  - [3.3 Kokeillaan asetettuja rajoituksia](#33-kokeillaan-asetettuja-rajoituksia)
 - [4 tuodaan tietoja taulukoihin](#4-tuodaan-tietoja-taulukoihin)
 
 
@@ -449,7 +450,7 @@ ALTER TABLE <taulukko> DROP CONSTRAINT <vaatimus>;
 ></details>
 <br>
 
-### 3.2 Luodaan taulukko `kirjat`
+### 3.3 Luodaan taulukko `kirjat`
 
 luo taulukko nimellä `kirjat` <br>
 Taulukkoon tulee ainakin seuraavat kentät:
@@ -571,7 +572,71 @@ Vaatimuksien tulisi näyttää tältä:
 ></details>
 <br>
 
+### 3.3 Kokeillaan asetettuja rajoituksia
+
+Kaikkien seuraavien koodien tulisi antaa virheilmoitus:
+```SQL
+-- liian vanha
+INSERT INTO lukijat (nimi, ika) VALUES ('Väinämöinen', 225);
+
+-- negatiivinen ikä
+INSERT INTO lukijat (nimi, ika) VALUES ('Antti Aikamatkaaja', -6);
+
+-- negatiivinen sivumäärä
+INSERT INTO kirjat (nimi, luettu, sivumaara, lukija_id) VALUES ('lukematon', 0, -1, 1);
+-- (Saattaa antaa virheilmoituksen myös vierasavaimesta)
+```
+
 ## 4 tuodaan tietoja taulukoihin
+
+Tuodaan taulukoihin tietoja tiedostosta [data.sql](assets/data/data.sql).
+
+*Varmista että taulukot `lukijat` ja `kirjat` ovat tyhjiä ennen tietojen tuomista*\
+*Käytä komentoa `DELETE FROM <taulukko>` poistaaksesi kaikki taulukon tiedot*
+
+
+1. Lataa tiedosto [data.sql](assets/data/data.sql) tietokoneellesi.
+
+2. Avaa uusi komentokehote -ikkuna ja siirry polkuun c:\xampp\mysql\bin
+
+3. Suorita komento:
+
+```powershell
+mysql.exe -u root uusi_db < <polku><tiedosto>.sql
+```
+
+Esimerkiksi:
+```powershell
+mysql.exe -u root uusi_db < c:\users\kayttaja1\desktop\data.sql
+```
+
+ 4. Jos komentokehoite ei antanut virheitä, tiedot tuotiin onnistuneesti. Voit sulkea komentokehoitteen jonka juuri avasit.
+
+<br>
+
+*Siirrytään takaisin SQL-päätteeseen*\
+Varmista että tiedot tuitiin onnistuneesti `SELECT` -komentoa käyttäen
+
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> Komennon syntaksi on:
+> ```SQL
+> SELECT <sarakkeet> FROM <taulukko>
+> ```
+>
+></details>
+<br>
+
+`lukijat` -taulukko:
+
+![Lukijat -taulukon tiedot](assets/images/lukijaTiedot1.png)
+
+`kirjat` -taulukko:
+
+![Kirjat - taulukon tiedot](assets/images/kirjaTiedot1.png)
+
 
 
 ><details>

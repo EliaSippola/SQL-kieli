@@ -138,6 +138,23 @@ Huomaa välilyonti viivojen jälkeen: "`-- `".
 
 Yhden rivin kommentin eteen laitetaan kaksi viivaa `-- `, ja pidemmän kommentin alkuun `/*` ja loppuun `*/`. SQL ei käy läpi kommenteissa olevaa tekstiä, joten sitä ei suoriteta tietokannassa.
 
+> **Huom, kun käytät SQL-kieltä CLI-päätteessä, et suorita koodia painamalla enteriä jos koodissa ei ole puolipistettä (";") lopussa.**
+>
+> jos jätät merkin väliin, tai painat vahingossa enteriä, antaa CLI uuden rivin käytettäväksi. Komento saattaa antaa virheilmoituksen jos vaihdat riviä kesken komennon, mutta ei silloin kun vaihdat riviä välilyönnin kohdalla. Myöskään enterin painaminen puolipistettä ennen ei vaikuta suoritukseen:
+>
+> ```SQL
+> SHOW DATABASES -- unohdetaan puolipiste
+> -> ; -- kirjoitetaan puolipiste jälkeenpäin
+> > tietokannat
+> > ...
+> ```
+> 
+> **Jos jäät jumiin CLI-päätteessä, käytä näppäinyhdistelmää CTRL + C**\
+> Näppäinyhdistelmä sulkee yhteyden SQL-päätteeseen, jonka jälkeen voit kirjautua uudelleen
+>
+> ![CLI jumissa](assets/images/cli-stuck.png)
+>
+
 <br>
 
 ## Yleisimpiä SQL-kielen komentoja
@@ -544,7 +561,7 @@ SELECT id, nimi FROM kayttajat;
 > ```
 > Tähän tarkoitukseen voidaan myös käyttää komentoa `TRUNCATE TABLE <taulukko>;`.
 > 
-> `TRUNCATE TABLE` -komento on tehokkaampi kun halutaan poistaa kaikki tietueet, sillä se ei käy läpi tietueita erikseen.
+> `TRUNCATE TABLE` -komento on tehokkaampi kun halutaan poistaa kaikki tietueet, sillä se ei käy läpi tietueita erikseen. `TRUNCATE TABLE` -komento ei toimi jos sinulla on `FOREIGN KEY` liitettynä taulukkoon, tai muita vaatimuksia sitä estämässä.
 
 <br>
 
