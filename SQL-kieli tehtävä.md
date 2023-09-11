@@ -448,7 +448,7 @@ Taulukkoon tulee ainakin seuraavat kentät:
 
 `nimi` - kirjan nimi<br>
 `luettu` - onko kirja luettu vai kesken<br>
-`sivumäärä` - kirjan sivujen määrä<br>
+`sivumaara` - kirjan sivujen määrä, saa olla tyhjä<br>
 `lukija_id` - lukijan id
 
 **Luodaan `FOREIGN KEY`, eli vierasavain kentälle `lukija_id` vasta seuraavassa vaiheessa.**
@@ -477,6 +477,11 @@ Taulukkoon tulee ainakin seuraavat kentät:
 
 Asetetaan seuraavaksi sarakkeelle `lukija_id` `FOREIGN KEY` -argumentti joka on yhteydessä `lukijat` -taulukon `id` -kenttään
 
+Käytä syntaksia:
+```SQL
+... FOREIGN KEY REFERENCES <taulukko>(<sarake>)
+```
+
 Käytetään komennossa argumenttia `MODIFY`
 
 ><details>
@@ -496,6 +501,8 @@ Käytetään komennossa argumenttia `MODIFY`
 >
 ></details>
 <br>
+
+Käytä komentoa jolla saat taulukon tiedot. Vastauksen tulisi näyttää tältä:
 
 
 
