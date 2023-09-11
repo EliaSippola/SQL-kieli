@@ -413,6 +413,13 @@ Vastauksen tulisi näyttää tältä:
 
 ![CHECK -vaatimus](assets/images/CHECK-vaatimus.png)
 
+Jos sinulla on ylimääräisiä vaatimuksia, voit poistaa ne komennolla
+```SQL
+ALTER TABLE <taulukko> DROP CONSTRAINT <vaatimus>;
+```
+
+<br>
+
 ><details>
 ><summary>Koodi</summary>
 ><br>
@@ -477,18 +484,20 @@ Taulukkoon tulee ainakin seuraavat kentät:
 
 Asetetaan seuraavaksi sarakkeelle `lukija_id` `FOREIGN KEY` -argumentti joka on yhteydessä `lukijat` -taulukon `id` -kenttään
 
+`FOREIGN KEY` on vaatimus SQL -kielessä
+
 Käytä syntaksia:
 ```SQL
-... FOREIGN KEY REFERENCES <taulukko>(<sarake>)
+... FOREIGN KEY REFERENCES <taulukko>(<sarake>) ON UPDATE CASCADE ON DELETE CASCADE;
 ```
 
-Käytetään komennossa argumenttia `MODIFY`
+Käytetään komennossa argumenttia `ADD`
 
 ><details>
 ><summary>Vihje 1</summary>
 ><br>
 >
-> Käytä komentoa `ALTER TABLE <taulukko> MODIFY ...`
+> Käytä komentoa `ALTER TABLE <taulukko> ADD CONSTRAINT ...`
 >
 ></details>
 <br>
