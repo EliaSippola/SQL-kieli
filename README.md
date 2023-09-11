@@ -155,7 +155,7 @@ Yhden rivin kommentin eteen laitetaan kaksi viivaa `-- `, ja pidemmän kommentin
 [`WHERE`](#where--argumantilla-valitaan-tiettyjä-arvoja-tietokannasta) - Annetaan ehtoja komennoille<br>
 [`UPDATE`](#update--komennolla-voidaan-muokata-taulukon-tietueita) - Muokataan tietoja taulukossa<br>
 [`DELETE`](#delete--komennolla-poistetaan-tietueita-taulukosta) - Poistetaan tietoja taulukosta **(Ei voi peruuttaa)**<br>
-[`DROP DATABASE`](#drop-database--komennolla-tuhotaan-koko-tietokanta) - Poistetaan tietokanta **(Ei voi peruuttaa)**
+[`DROP DATABASE`](#drop-database--komennolla-tuhotaan-koko-tietokanta) - Poistetaan tietokanta **(Ei voi peruuttaa, poistaa kaikki tiedot)**
 
 
 <br>

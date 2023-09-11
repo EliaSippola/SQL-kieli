@@ -14,6 +14,7 @@ SQL-kielen Tehtävä <!-- omit from toc -->
 - [3 Taulukoiden luominen tietokantaan](#3-taulukoiden-luominen-tietokantaan)
   - [3.1 Luodaan taulukko `lukijat`](#31-luodaan-taulukko-lukijat)
   - [3.2 Luodaan taulukko `kirjat`](#32-luodaan-taulukko-kirjat)
+- [4 tuodaan tietoja taulukoihin](#4-tuodaan-tietoja-taulukoihin)
 
 
 Tietokannan luominen ja muokkaaminen SQL-kielellä CLI (*Command Line Interface*) -päätteessä
@@ -539,7 +540,38 @@ Vaatimuksien tulisi näyttää tältä:
 
 ![Kirjojen vaatimukset](assets/images/kirjat-vaatimukset.png)
 
+><details>
+><summary>Koodi</summary>
+><br>
+> 
+> ```SQL
+> -- Luodaan taulukko 'kirjat'
+> CREATE TABLE kirjat (
+> id int(6) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+> nimi varchar(255) NOT NULL,
+> luettu boolean NOT NULL,
+> -- huom, boolean vaihtuu tinyint(1) muotoon
+> sivumaara int(12),
+> lukija_id int(6)
+> );
+>
+> -- lisätään foreign key 'lukija_id' sarakkeeseen
+> ALTER TABLE kirjat ADD CONSTRAINT FOREIGN KEY (lukija_id) REFERENCES lukijat(id) ON UPDATE CASCADE ON DELETE CASCADE;
+> 
+> -- lisätään vielä rajoitus 'sivumaara' -sarakkeeseen
+> ALTER TABLE kirjat ADD CONSTRAINT sivumaara_positiivinen CHECK(sivumaara >= 0);
+> 
+> -- tarkistetaan sarakkeet
+> DESC kirjat;
+>
+> -- tarkistetaan rajoitukset
+> SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME = 'kirjat';
+> ```
+>
+></details>
+<br>
 
+## 4 tuodaan tietoja taulukoihin
 
 
 ><details>
