@@ -18,6 +18,7 @@ SQL-kielen Tehtävä <!-- omit from toc -->
 - [4 tuodaan tietoja taulukoihin](#4-tuodaan-tietoja-taulukoihin)
   - [4.1 Tuodaan taulukoihin tietoja tiedostosta data.sql.](#41-tuodaan-taulukoihin-tietoja-tiedostosta-datasql)
   - [4.2 lisätään taulukkoon omia tietoja](#42-lisätään-taulukkoon-omia-tietoja)
+  - [4.3 Muutetaan taulukoiden tietoja](#43-muutetaan-taulukoiden-tietoja)
 
 
 Tietokannan luominen ja muokkaaminen SQL-kielellä CLI (*Command Line Interface*) -päätteessä
@@ -627,7 +628,7 @@ Varmista että tiedot tuitiin onnistuneesti `SELECT` -komentoa käyttäen
 >
 > Komennon syntaksi on:
 > ```SQL
-> SELECT <sarakkeet> FROM <taulukko>
+> SELECT <sarakkeet> FROM <taulukko>;
 > ```
 >
 ></details>
@@ -693,16 +694,48 @@ Lisätään sitten lukijalle `Tiina Tavallinen` kirjoja:
 ><br>
 >
 > Luettu = 1
-> Ei luettu = 0
+> kesken = 0
 >
 ></details>
 <br>
 
 ><details>
-><summary></summary>
+><summary>Vihje 2</summary>
 ><br>
+>
+> `lukija_id` on lukijan `Tiina Tavallinen` id
+>
 ></details>
 <br>
+
+Taulukkoon tulisi nyt tulla näkyviin seuraavat rivit:
+
+![tavalliset kirjat](assets/images/tavalliset-kirjat.png)
+
+><details>
+><summary>Koodi</summary>
+><br>
+>
+> ```SQL
+> -- lisätään käyttäjä 'Tiina Tavallinen'
+> INSERT INTO lukijat (nimi, ika) VALUES ('Tiina Tavallinen', 34);
+>
+> -- lisätään kirjat
+> -- lukijan 'Tiina Tavallinen' id = 5
+> INSERT INTO kirjat (nimi, luettu, sivumaara, lukija_id) VALUES ('Tavattoman Tavalliset', 1, 565, 5), ('Toivottoman tavalliset', 0, 497, 5);
+> ```
+>
+></details>
+<br>
+
+### 4.3 Muutetaan taulukoiden tietoja
+
+Lukija 
+
+??<br>
+INSERT INTO lukijat (nimi, ika) SELECT lukijat.nimi FROM lukijat WHERE id = 1;
+<br>??
+
 
 
 ><details>
