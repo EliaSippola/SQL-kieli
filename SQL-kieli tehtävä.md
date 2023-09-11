@@ -511,7 +511,34 @@ Käytetään komennossa argumenttia `ADD`
 ></details>
 <br>
 
+Luodaan vielä rajoitus `sivumaara` -sarakkeelle. Sivumäärä ei saa olla negatiivinen.
+
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> Käytä komentoa
+> ```SQL
+> ALTER TABLE <taulukko> ADD CONSTRAINT ...
+> ```
+>
+></details>
+<br>
+
+
 Käytä komentoa jolla saat taulukon tiedot. Vastauksen tulisi näyttää tältä:
+
+![Kirjat -taulukko](assets/images/kirjat1.png)
+
+`kirjat` -taulukon vaatimukset tarkistetaan komennolla
+```SQL
+SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME = 'kirjat';
+```
+
+Vaatimuksien tulisi näyttää tältä:
+
+![Kirjojen vaatimukset](assets/images/kirjat-vaatimukset.png)
+
 
 
 
@@ -520,7 +547,3 @@ Käytä komentoa jolla saat taulukon tiedot. Vastauksen tulisi näyttää tält�
 ><br>
 ></details>
 <br>
-
--kuvia tietokannan GUI:sta<br>
--käyttäjän tekeminen
-
