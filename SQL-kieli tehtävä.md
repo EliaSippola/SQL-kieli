@@ -338,20 +338,108 @@ Käytä komentoa `CREATE TABLE`
 > AUTO_INCREMENT
 > ```
 >
+>
 ></details>
 <br>
 
 **Komennon suorituksen jälkeen kokeillaan toimiko taulukon luonti:**
 
-Käytä komentoa `DESCRIBE TABLE <taulukko>`<br>
+Käytä komentoa `DESCRIBE TABLE <taulukko>;`<br>
 Taulukon pitäisi nyt näyttää tältä:
 
 ![lukijat -taulukko](assets/images/lukijat1.png)
 
 
-Lisätään vielä sarake `ika` käyttäjän iälle. Käytä sarakkeen lisäämiseen komentoa `ALTER TABLE`.
+Lisätään vielä sarake `ika` käyttäjän iälle. Käytä sarakkeen lisäämiseen komentoa `ALTER TABLE`. `Ika` -sarake saa olla tyhjä.
 
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> komennon muoto on:
+> ```SQL
+> ALTER TABLE <taulukko> ADD [COLUMN] <sarake> <argumentit>
+> ```
+>
+></details>
+<br>
 
+><details>
+><summary>Vihje 2</summary>
+><br>
+>
+> Argumantti `NOT NULL` määrittää että sarakkeen tiedot eivät saa olla tyhjiä.
+>
+></details>
+<br>
+
+Sen jälkeen asetetaan `CONSTRAINT`, `CHECK` -argumentilla, eli vaatimuksella `ika` -sarakkeelle jolla tarkistetaan että ikä ei ole negatiivinen, ja että ikä ei ole yli 120 vuotta
+
+Komennon muoto on:
+```SQL
+ALTER TABLE <tietokanta> ADD CONSTRAINT <vaatimus> CHECK(<argumentit>)
+```
+
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> argumenttien väliin täytyy asettaa `AND` -operaattori
+>
+> Vaatimukselle täytyy myöskin asettaa nimi
+>
+></details>
+<br>
+
+><details>
+><summary>Vihje 2</summary>
+><br>
+>
+> Argumentit ovat: `ika <= 120`, ja `ika >= 0`
+>
+></details>
+<br>
+
+`lukijat` -taulukon tulisi nyt näyttää tältä:
+
+![Lukijat taulukko](assets/images/lukijat2.png)
+
+Vaatimukset voidaan tarkistaa komennolla:
+```SQL
+SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME = 'lukijat';
+```
+
+Vastauksen tulisi näyttää tältä:
+
+![CHECK -vaatimus](assets/images/CHECK-vaatimus.png)
+
+><details>
+><summary>Koodi</summary>
+><br>
+>
+> ```SQL
+> -- luodaan taulukko 'lukijat'
+> -- sarakkeina id ja nimi
+> CREATE TABLE lukijat (
+> id int(6) NOT NULL PRIMARY KEY, AUTO_INCREMENT,
+> nimi varchar(255) NOT NULL
+> );
+>
+> -- lisätään 'ika' sarake. Huom, saa olla tyhjä, ei NOT NULL -argumenttia
+> ALTER TABLE lukijat ADD ika int(6);
+>
+> -- lisätään CONSTRAINT CHECK, jotta ikä on aina oikealla alueella
+> ALTER TABLE lukijat ADD CONSTRAINT ika_mahdollinen CHECK(ika <= 120 AND ika >= 0);
+> 
+> -- tarkistetaan että kaikki on lisätty oikein. DESC = DESCRIBE -kumennon lyhennetty muoto
+> DESC lukijat;
+>
+> -- tarkistetaan myös että vaatimus on asetettu
+> SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME = 'lukijat';
+> ```
+>
+></details>
+<br>
 
 ### 3.2 Luodaan taulukko `kirjat`
 
@@ -360,6 +448,55 @@ Taulukkoon tulee ainakin seuraavat kentät:
 
 `nimi` - kirjan nimi<br>
 `luettu` - onko kirja luettu vai kesken<br>
+`sivumäärä` - kirjan sivujen määrä<br>
+`lukija_id` - lukijan id
+
+**Luodaan `FOREIGN KEY`, eli vierasavain kentälle `lukija_id` vasta seuraavassa vaiheessa.**
+
+*muista myös asettaa PRIMARY KEY -kenttä*
+
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> Aseta taulukon ensimmäiseksi sarakkeeksi `id` -kenttä, joka toimii pääavaimena
+>
+></details>
+<br>
+
+><details>
+><summary>Vihje 2</summary>
+><br>
+>
+> Käytä `luettu` -kentässä datatyyppiä `BOOLEAN` = `BOOL`
+>
+> Datatyypissä `BOOLEAN` luku 0 saa arvon `false` ja positiiviset luvut arvon `true`
+>
+></details>
+<br>
+
+Asetetaan seuraavaksi sarakkeelle `lukija_id` `FOREIGN KEY` -argumentti joka on yhteydessä `lukijat` -taulukon `id` -kenttään
+
+Käytetään komennossa argumenttia `MODIFY`
+
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> Käytä komentoa `ALTER TABLE <taulukko> MODIFY ...`
+>
+></details>
+<br>
+
+><details>
+><summary>Vihje 2</summary>
+><br>
+>
+> Sinun tulee asettaa kaikki argumentit uudelleen, kun muokkaat kenttää `lukija_id`.
+>
+></details>
+<br>
+
 
 
 ><details>

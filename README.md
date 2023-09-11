@@ -10,7 +10,9 @@
 
 - SQL on stantardisoitu kieli viestimiseen tietokannan kanssa
 - SQL on lyhennelmä sanoista "Structured Query Language", se tarkoittaa suomeksi Jäsenneltyä kyselykieltä
-- Suurin osa nykyisistä tietokantapalvelimista tukee tietokantojen ja tiedon hallintaa SQL kielellä
+- Suurin osa nykyisistä tietokantapalvelimista tukee tietokantojen ja tiedon hallintaa SQL kielellä.
+
+Esimerkiksi Oracle, MySQL, Microsoft SQL server, PostreSQL, sekä MariaDB ovat tietokanta-arkkitehtuureja jotka pohjautuvat SQL kieleen.
 <br>
 
 
