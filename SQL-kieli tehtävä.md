@@ -644,11 +644,11 @@ Esimerkiksi:
 mysql.exe -u uusi_db_kayttaja uusi_db < c:\users\kayttaja1\desktop\data.sql
 ```
 
-*Huomaa suurempaa tai pienempää tarkoittavan merkin suunta. Merkki osoittaa suuntaan jonne tiedot viedään. Tässä tapauksessa siis käytetään `>` -merkkiä*
+*Huomaa suurempaa tai pienempää tarkoittavan merkin suunta. Merkki osoittaa suuntaan jonne tiedot viedään. Tässä tapauksessa siis käytetään `<` -merkkiä*
 
 *Muista käyttää salasanaa joka asetettiin käyttäjälle `uusi_db_kayttaja`. Salasana pitäisi olla `Kissa123`, tai jotain muuta mitä asetit.*
 
- 4. Jos komentokehoite ei antanut virheitä, tiedot tuotiin onnistuneesti. Voit sulkea komentokehoitteen jonka juuri avasit.
+ 4. Jos komentokehoite ei antanut virheitä, tiedot tuotiin onnistuneesti.
 
 <br>
 
@@ -662,6 +662,17 @@ Varmista että tiedot tuitiin onnistuneesti `SELECT` -komentoa käyttäen
 > Komennon syntaksi on:
 > ```SQL
 > SELECT <sarakkeet> FROM <taulukko>;
+> ```
+>
+></details>
+<br>
+
+><details>
+><summary>Koodi</summary>
+><br>
+>
+> ```SQL
+> SELECT * FROM lukijat;
 > ```
 >
 ></details>
@@ -778,11 +789,31 @@ Tuo tiedoston taulukot `uusi_db` -tietokantaan kohdan [4 tuodaan tietoja tauluko
 
 Sinulla pitäisi nyt olla tietokannassa `uusi_db` 4 taulukkoa:
 
--- kuva --
+![4 taulukkoa](assets/images/4-taulukkoa.png)
 
 Käytä komentoa `INSERT INTO` ja kopioi taulukon `lukijat2` tietueet taulukkoon `lukijat`
 
--- ohjeet --
+Sinun täytyy yhdistää komennot `INSERT INTO`, ja `SELECT`
+
+Komennon muoto on:
+```SQL
+INSERT INTO <taulukko> [(<sarakkeet>)] SELECT ...
+```
+
+><details>
+><summary></summary>
+><br>
+></details>
+<br>
+
+><details>
+><summary>Vihje 2</summary>
+><br>
+>
+> Et saa asettaa `id` -saraketta, koska arvot ovat jo olemassa
+>
+></details>
+<br>
 
 -- kirjat2 taulukkoon kirjat, mutta säilytetään samat lukijat --
 
