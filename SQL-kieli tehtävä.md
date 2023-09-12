@@ -433,7 +433,7 @@ Vastauksen tulisi näyttää tältä:
 
 `CHECK` -vaatimusten sisällöt voi tarkistaa komennolla:
 ```SQL
-SELECT * FROM INFORMATION_SCHEMA.CONSTRAINTS WHERE TABLE_NAME = 'lukijat';
+SELECT * FROM INFORMATION_SCHEMA.CHECK_CONSTRAINTS WHERE TABLE_NAME = 'lukijat';
 ```
 
 ![CHECK tiedot](assets/images/CHECK-tiedot.png)
@@ -466,8 +466,11 @@ ALTER TABLE <taulukko> DROP CONSTRAINT <vaatimus>;
 > -- tarkistetaan että kaikki on lisätty oikein. DESC = DESCRIBE -kumennon lyhennetty muoto
 > DESC lukijat;
 >
-> -- tarkistetaan myös että vaatimus on asetettu
+> -- tarkistetaan että vaatimus on asetettu
 > SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME = 'lukijat';
+> 
+> -- tarkistetaan vaatimuksen sisältö
+> SELECT * FROM INFORMATION_SCHEMA.CHECK_CONSTRAINTS WHERE TABLE_NAME = 'lukijat';
 > ```
 >
 ></details>
@@ -482,8 +485,6 @@ Taulukkoon tulee ainakin seuraavat kentät:
 `luettu` - onko kirja luettu vai kesken<br>
 `sivumaara` - kirjan sivujen määrä, saa olla tyhjä<br>
 `lukija_id` - lukijan id
-
-**Luodaan `FOREIGN KEY`, eli vierasavain kentälle `lukija_id` vasta seuraavassa vaiheessa.**
 
 *muista myös asettaa PRIMARY KEY -kenttä*
 
@@ -509,11 +510,11 @@ Taulukkoon tulee ainakin seuraavat kentät:
 
 Asetetaan seuraavaksi sarakkeelle `lukija_id` `FOREIGN KEY` -argumentti joka on yhteydessä `lukijat` -taulukon `id` -kenttään
 
-`FOREIGN KEY` on vaatimus SQL -kielessä
+*`FOREIGN KEY` on vaatimus SQL -kielessä, joka varmistaa että arvo on olemassa toisessa taulukossa. Jos esimerkiksi halutaan yhdistää käyttäjät ja käyttäjien lähettämät postaukset, yhdistetään taulukkoon `postaukset` sarake jossa kerrotaan kuka postauksen on tehnyt*
 
 Käytä syntaksia:
 ```SQL
-... FOREIGN KEY REFERENCES <taulukko>(<sarake>) ON UPDATE CASCADE ON DELETE CASCADE;
+... FOREIGN KEY (<sarake>) REFERENCES <taulukko>(<sarake>) ON UPDATE CASCADE ON DELETE CASCADE;
 ```
 
 Käytetään komennossa argumenttia `ADD`
@@ -531,7 +532,7 @@ Käytetään komennossa argumenttia `ADD`
 ><summary>Vihje 2</summary>
 ><br>
 >
-> Sinun tulee asettaa kaikki argumentit uudelleen, kun muokkaat kenttää `lukija_id`.
+> aseta 'lukija_id' ensimmäisen sarakkeen paikalle. `REFERENCES` -argumentin jälkeen laita taulukko ja sarake mistä tiedot tulevat.
 >
 ></details>
 <br>
@@ -564,6 +565,13 @@ Vaatimuksien tulisi näyttää tältä:
 
 ![Kirjojen vaatimukset](assets/images/kirjat-vaatimukset.png)
 
+Tarkista myös `CHECK` -vaatimuksen parametrit komennolla
+```SQL
+SELECT * FROM INFORMATION_SCHEMA.CHECK_CONSTRAINTS WHERE TABLE_NAME = 'kirjat';
+```
+
+![CHECK vaatimukset](assets/images/CHECK-tiedot2.png)
+
 ><details>
 ><summary>Koodi</summary>
 ><br>
@@ -590,6 +598,9 @@ Vaatimuksien tulisi näyttää tältä:
 >
 > -- tarkistetaan rajoitukset
 > SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME = 'kirjat';
+>
+> -- tarkistetaan CHECK -vaatimus
+> SELECT * FROM INFORMATION_SCHEMA.CHECK_CONSTRAINTS WHERE TABLE_NAME = 'kirjat';
 > ```
 >
 ></details>
@@ -615,7 +626,7 @@ INSERT INTO kirjat (nimi, luettu, sivumaara, lukija_id) VALUES ('lukematon', 0, 
 ### 4.1 Tuodaan taulukoihin tietoja tiedostosta [data.sql](assets/data/data.sql).
 
 *Varmista että taulukot `lukijat` ja `kirjat` ovat tyhjiä ennen tietojen tuomista*\
-*Käytä komentoa `DELETE FROM <taulukko>` poistaaksesi kaikki taulukon tiedot*
+*Käytä komentoa `DELETE FROM <taulukko>` poistaaksesi kaikki taulukon tiedot, jos taulukossa on tietueita.*
 
 
 1. Lataa tiedosto [data.sql](assets/data/data.sql) tietokoneellesi.
@@ -625,13 +636,17 @@ INSERT INTO kirjat (nimi, luettu, sivumaara, lukija_id) VALUES ('lukematon', 0, 
 3. Suorita komento:
 
 ```powershell
-mysql.exe -u root uusi_db < <polku><tiedosto>.sql
+mysql.exe -u uusi_db_kayttaja -p uusi_db < <polku><tiedosto>.sql
 ```
 
 Esimerkiksi:
 ```powershell
-mysql.exe -u root uusi_db < c:\users\kayttaja1\desktop\data.sql
+mysql.exe -u uusi_db_kayttaja uusi_db < c:\users\kayttaja1\desktop\data.sql
 ```
+
+*Huomaa suurempaa tai pienempää tarkoittavan merkin suunta. Merkki osoittaa suuntaan jonne tiedot viedään. Tässä tapauksessa siis käytetään `>` -merkkiä*
+
+*Muista käyttää salasanaa joka asetettiin käyttäjälle `uusi_db_kayttaja`. Salasana pitäisi olla `Kissa123`, tai jotain muuta mitä asetit.*
 
  4. Jos komentokehoite ei antanut virheitä, tiedot tuotiin onnistuneesti. Voit sulkea komentokehoitteen jonka juuri avasit.
 
