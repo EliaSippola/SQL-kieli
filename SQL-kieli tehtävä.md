@@ -728,11 +728,34 @@ Taulukkoon tulisi nyt tulla näkyviin seuraavat rivit:
 ></details>
 <br>
 
+### 4.3 Yhdistetään taulukoita
+
+Lataa tiedosto [data2.sql](assets/data/data2.sql)
+
+Tuo tiedoston taulukot `uusi_db` -tietokantaan kohdan [4 tuodaan tietoja taulukoihin](#4-tuodaan-tietoja-taulukoihin) avulla
+
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> Vain tiedoston nimi muuttuu komennossa.
+>
+></details>
+<br>
+
+Sinulla pitäisi nyt olla tietokannassa `uusi_db` 4 taulukkoa:
+
+-- kuva --
+
+Käytä komentoa `INSERT INTO` ja kopioi taulukon `lukijat2` tietueet taulukkoon `lukijat`
+
+
+-- kirjat2 taulukkoon kirjat, mutta säilytetään samat lukijat --
+
 ### 4.3 Muutetaan taulukoiden tietoja
 
 Lukija 
 
-<!-- testing code -->
 INSERT INTO lukijat (nimi, ika) VALUES((SELECT kirjat.nimi FROM kirjat WHERE kirjat.id = 1),1)
 
 
