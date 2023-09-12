@@ -175,6 +175,7 @@ USE uusi_db;
 
 SELECT @@character_set_database, @@collation_database;
 ```
+
 ![merkistön tarkistus](assets/images/merkiston-tarkistus.png)
 
 ><details>
@@ -212,6 +213,7 @@ voit nähdä kaikki käyttäjät komennolla:
 ```SQL
 SELECT host, user FROM mysql.user;
 ```
+
 ![käyttäjän luominen](assets/images/kayttajan-luominen.png)
 
 ><details>
@@ -229,7 +231,7 @@ SELECT host, user FROM mysql.user;
 
 ### 2.4 Asetetaan käyttäjän `uusi_db_kayttaja` oikeudet
 
-Käytä komentoa `GRANT ALL PRIVILEDGES`, ja anna käyttäjälle `uusi_db_kayttaja` kaikki oikeudet tietokantaan `uusi_db`
+Käytä komentoa `GRANT ALL PRIVILEGES`, ja anna käyttäjälle `uusi_db_kayttaja` kaikki oikeudet tietokantaan `uusi_db`
 
 ><details>
 ><summary>Vihje 1</summary>
@@ -250,6 +252,7 @@ Käytä komentoa `GRANT ALL PRIVILEDGES`, ja anna käyttäjälle `uusi_db_kaytta
 Avaa uusi_db -tietokanta, ja paina kohtaa käyttöoikeudet.
 
 Näkymässä tulisi olla seuraavanlainen käyttäjä:
+
 ![phpMyAdmin käyttäjän oikeudet](assets/images/db-kayttaja.png)
 
 ><details>
@@ -257,7 +260,7 @@ Näkymässä tulisi olla seuraavanlainen käyttäjä:
 ><br>
 >
 > ```SQL
-> GRANT ALL PRIVILEDGES ON uusi_db.* TO 'uusi_db_kayttaja'@'%';
+> GRANT ALL PRIVILEGES ON uusi_db.* TO 'uusi_db_kayttaja'@'%';
 > ```
 >
 ></details>
@@ -290,7 +293,8 @@ Sulje ensin yhteys SQL-palvelimeen komennolla `exit`, sen jälkeen yhdistetään
 
 *Varmista että kirjoitat salasanan oikein.*
 
-*päätteen tulisi taas näyttää samalta:*
+*päätteen tulisi taas näyttää tältä:*
+
 ![pääte](assets/images/mariadb-default.png)
 
 ## 3 Taulukoiden luominen tietokantaan
@@ -316,6 +320,8 @@ Taulukkoon tulee sauraavat kentät:
 `nimi` (varchar(255), not null) - lukijan nimi<br>
 
 Käytä komentoa `CREATE TABLE`
+
+*int(6) on luku, jonka pituus on 6 merkkiä (max 999 999), ei luku jonka maksimi on 6*
 
 *SQL-kieli ei välitä rivinvaihdoista, käytä tätä hyväksesi.*
 
@@ -351,13 +357,14 @@ Käytä komentoa `CREATE TABLE`
 
 **Komennon suorituksen jälkeen kokeillaan toimiko taulukon luonti:**
 
-Käytä komentoa `DESCRIBE TABLE <taulukko>;`<br>
+Käytä komentoa `DESCRIBE <taulukko>;`<br>
 Taulukon pitäisi nyt näyttää tältä:
 
 ![lukijat -taulukko](assets/images/lukijat1.png)
 
+*komento `DESC` on lyhenne komennosta `DESCRIBE`*
 
-Lisätään vielä sarake `ika` käyttäjän iälle. Käytä sarakkeen lisäämiseen komentoa `ALTER TABLE`. `Ika` -sarake saa olla tyhjä.
+Lisätään vielä sarake `ika` käyttäjän iälle. Käytä sarakkeen lisäämiseen komentoa `ALTER TABLE`. `ika` -sarake saa olla tyhjä.
 
 ><details>
 ><summary>Vihje 1</summary>
@@ -384,8 +391,10 @@ Sen jälkeen asetetaan `CONSTRAINT`, `CHECK` -argumentilla, eli vaatimuksella `i
 
 Komennon muoto on:
 ```SQL
-ALTER TABLE <tietokanta> ADD CONSTRAINT <vaatimus> CHECK(<argumentit>)
+ALTER TABLE <taulukko> ADD CONSTRAINT [<vaatimuksen nimi>] CHECK(<argumentit>)
 ```
+
+*SQL-palvelin asettaa vaatimuksille nimet automaattisesti jos nimeä ei aseteta*
 
 ><details>
 ><summary>Vihje 1</summary>
@@ -411,7 +420,7 @@ ALTER TABLE <tietokanta> ADD CONSTRAINT <vaatimus> CHECK(<argumentit>)
 
 ![Lukijat taulukko](assets/images/lukijat2.png)
 
-Vaatimukset voidaan tarkistaa komennolla:
+Kaikki vaatimukset voidaan tarkistaa komennolla:
 ```SQL
 SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME = 'lukijat';
 ```
@@ -419,6 +428,15 @@ SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME = 'lukijat';
 Vastauksen tulisi näyttää tältä:
 
 ![CHECK -vaatimus](assets/images/CHECK-vaatimus.png)
+
+*Vaatimuksen sisällöt löytyvät tietokannasta sys, johon käyttäjällä `uusi_db_kayttaja` ei ole pääsyä*
+
+`CHECK` -vaatimusten sisällöt voi tarkistaa komennolla:
+```SQL
+SELECT * FROM INFORMATION_SCHEMA.CONSTRAINTS WHERE TABLE_NAME = 'lukijat';
+```
+
+![CHECK tiedot](assets/images/CHECK-tiedot.png)
 
 Jos sinulla on ylimääräisiä vaatimuksia, voit poistaa ne komennolla
 ```SQL
@@ -749,6 +767,7 @@ Sinulla pitäisi nyt olla tietokannassa `uusi_db` 4 taulukkoa:
 
 Käytä komentoa `INSERT INTO` ja kopioi taulukon `lukijat2` tietueet taulukkoon `lukijat`
 
+-- ohjeet --
 
 -- kirjat2 taulukkoon kirjat, mutta säilytetään samat lukijat --
 
