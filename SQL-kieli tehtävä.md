@@ -18,7 +18,10 @@ SQL-kielen Tehtävä <!-- omit from toc -->
 - [4 tuodaan tietoja taulukoihin](#4-tuodaan-tietoja-taulukoihin)
   - [4.1 Tuodaan taulukoihin tietoja tiedostosta data.sql.](#41-tuodaan-taulukoihin-tietoja-tiedostosta-datasql)
   - [4.2 lisätään taulukkoon omia tietoja](#42-lisätään-taulukkoon-omia-tietoja)
+  - [4.3 Yhdistetään taulukoita](#43-yhdistetään-taulukoita)
   - [4.3 Muutetaan taulukoiden tietoja](#43-muutetaan-taulukoiden-tietoja)
+    - [1. tehtävä](#1-tehtävä)
+    - [2. tehtävä](#2-tehtävä)
 
 
 Tietokannan luominen ja muokkaaminen SQL-kielellä CLI (*Command Line Interface*) -päätteessä
@@ -801,8 +804,16 @@ INSERT INTO <taulukko> [(<sarakkeet>)] SELECT ...
 ```
 
 ><details>
-><summary></summary>
+><summary>Vihje 1</summary>
 ><br>
+>
+> Kun käytät `SELECT` -komentoa hakeaksesi tietoja toisesta taulukosta, sinun tulee mainita myöskin mistä taulukosta tiedot tulevat.
+>
+> Esimerkiksi:
+> ```SQL
+> ... SELECT tietokanta1.nimi, tietokanta1.ika ...
+> ```
+>
 ></details>
 <br>
 
@@ -810,19 +821,212 @@ INSERT INTO <taulukko> [(<sarakkeet>)] SELECT ...
 ><summary>Vihje 2</summary>
 ><br>
 >
-> Et saa asettaa `id` -saraketta, koska arvot ovat jo olemassa
+> Älä anna arvoa `id` -sarakkeelle, koska arvot `1` ja `2` taulukosta `lukijat2`, ovat jo olemassa taulukossa `lukijat`. SQL täyttää arvot automaatisesti argumenttien `PRIMARY KEY` ja `AUTO_INCREMENT` avulla.
 >
 ></details>
 <br>
 
--- kirjat2 taulukkoon kirjat, mutta säilytetään samat lukijat --
+> Kun otetaan tietoja toisesta taulukosta, voi olla hyödyllistä käyttää SQL-aliaksia. Aliaksien avulla voidaan lyhentää pitkää taulukon nimeä esimerkiksi `SELECT` -komennossa:
+>
+> Esimerkiksi:
+> ```SQL
+> -- haetaan tietoja toisesta taulukosta
+> SELECT k2.etunimi, k2.sukunimi FROM kayttajat_2 AS k2 WHERE ...;
+>
+> -- Ei ole pakko käyttää 'AS' argumenttia ainakaan MariaDB:ssä
+> SELECT k2.etumini, k2.sukunimi FROM kayttajat_2 k2 WHERE ...;
+> ```
+
+Siirrä sitten taulukon `kirjat2` tiedot taulukkoon `kirjat`. Huomaa että sinun tulee vaihtaa `lukija_id` lukijoiden uusiksi `id`:ksi (Mikko Mallikas id = 1 -> 6, ja Sanna suomalainen id = 2 -> 7). Käytä vain yhtä komentoa tietojen lisäämiseen.
+
+*Voit taas käyttää taulukoiden nimien lyhentämiseen `AS` -komentoa `... FROM kayttajat AS k ...`*
+
+*Käytä komennossa apuna `INNER JOIN` argumenttia*
+
+<details>
+<summary><b><code>INNER JOIN</code></b></summary>
+<br>
+
+`JOIN` -komento on yksi tärkeimmistä SQL-kielen komennoista. `INNER JOIN` on yksi neljästä `JOIN` -komennosta. 
+
+`INNER JOIN` toimii kaikkien komentojen kanssa, joiden tarvitsee hakea tietoa taulukoista. Komennon avulla voidaan yhdistää tietoja useammista taulukoista.
+
+Komennon syntaksi on:
+```SQL
+... INNER JOIN <taulukko2> ON <arvo1> = <arvo2> ...
+```
+
+Missä:
+```SQL
+... INNER JOIN <taulukko> -- 'taulukko' on yhdistettävä taulukko
+ON <arvo1> = <arvo2> -- 'arvo1' ja 'arvo2' ovat tiedot, joiden avulla haun arvot yhdistetään toisiinsa.
+```
+
+Esimerkiksi:
+```SQL
+-- haetaan kaikki kirjat, ja niiden lukijoiden nimi
+SELECT l.nimi, k.nimi, k.luettu FROM kirjat k INNER JOIN lukijat l ON l.id = k.lukija_id;
+> l.nimi                  k.nimi                              k.luettu
+> Matti Myöhainen         Unikeon päiväkirja                  0
+> Vilho Vanhanaikainen    Romanttisia tarinoita 1957          1
+> Vilho Vanhanaikainen    Tietokoneen käyttäminen aloit..     0
+> ... jne.
+```
+
+Haku siis yhdistää taulukot `lukijat` ja `kirjat` toisiinsa `lukija_id`:n ja `id`:n avulla
+
+```SQL
+SELECT k.lukija_id, l.id FROM kirjat k INNER JOIN lukijat l ON l.id = k.lukija_id;
+> lukija_id   id
+> 1           1
+> 2           2
+> 2           2
+> 2           2
+> 2           2
+> 3           3
+> ... jne.
+```
+
+Kun näytämme yhdistyneet arvot `lukija_id` ja `id`, niin huomaamme että kaikki tietueet on yhdistetty niiden avulla, eli ne ovat samat kaikissa palautetuissa tietueissa.
+
+</details>
+<br>
+
+*Tehtävän vihjeet*
+
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> Lukijoiden `id`:t täytyy hakea `lukijat2` -taulukosta, jonka jälkeen ne tulee yhdistää `lukijat` taulukon nimien kanssa.
+>
+></details>
+<br>
+
+><details>
+><summary>Vihje 2</summary>
+><br>
+>
+> Käytä `SELECT` -lausekkeessa toimintoa `INNER JOIN`, jotta saat useamman haun yhdistettyä. Sinun täytyy yhdistää useampi kuin yksi haku.
+>
+> Komennon muoto:
+> ```SQL
+> ... FROM kayttajat k INNER JOIN kayttajat2  k2 ON k.nimi = k2.nimi ...
+> ```
+>
+></details>
+<br>
+
+*Seuraa vastauksen vaiheita ymmärtääksesi komennon eri osat ja vaiheet*
+
+><details>
+><summary>Vastaus</summary>
+><br>
+>
+> Komennon voi tehdä muutamalla eri tavalla. Tässä on yksi niistä:
+> ```SQL
+> -- Aloitetaan alusta, ja merkitään mitkä tiedot haluamme lisätä
+> -- Haluamme tiedot nimi, luettu, sivumaara ja lukija_id
+> INSERT INTO kirjat (nimi, luettu, sivumaara, lukija_id) ...
+>
+> -- Käytetään lyhenteitä kirjat2 = k2, lukijat = l, lukijat2 = l2
+> /* merkitään mistä haluamamme tiedot tulevat
+> Huomaa lukija_id:n kohdalle tulee taulukon 'lukijat' lukijan id */
+> ... SELECT k2.nimi, k2.luettu, k2.sivumaara, l.id ...
+> 
+> -- aletaan merkitä lähteitä:
+>
+> -- kolme ensimmäistä arvoa tulee taulukosta kirjat2 = k2
+> ... FROM kirjat2 k2 ...
+>
+> -- linkitetään taulukot kirjat2 = k2 ja lukijat2 = l2, jotta saadaan selville lukijan nimi id:n avulla
+> ... INNER JOIN lukijat2 l2 ON k2.lukija_id = l2.id ...
+>
+> -- linkitetään taulukot lukijat2 = l2 ja lukijat = l, jotta saadaan selville lukijoiden uudet id:t nimen avulla
+> ... INNER JOIN lukijat l ON l2.nimi = l.nimi;
+> 
+> ```
+>
+>
+></details>
+
+><details>
+><summary>Koodi kokonaan</summary>
+><br>
+>
+> ```SQL
+> INSERT INTO kirjat (nimi, luettu, sivumaara, lukija_id)
+> SELECT k2.nimi, k2.luettu, k2.sivumaara, l.id FROM kirjat2 k2 
+> INNER JOIN lukijat2 l2 ON k2.lukija_id = l2.id 
+> INNER JOIN lukijat l ON l2.nimi = l.nimi;
+> ```
+>
+></details>
+<br>
+
+Taulukon `kirjat` tulisi nyt näyttää suurin piirtein tältä:
+
+![Kaikki kirjat](assets/images/Kaikki-kirjat.png)
+
+*Huomaa muuttuneet `lukija_id`:t viimeisissä tietueissa*
 
 ### 4.3 Muutetaan taulukoiden tietoja
 
-Lukija 
+*Vastaukset luvun 4.3 lopussa*
 
-INSERT INTO lukijat (nimi, ika) VALUES((SELECT kirjat.nimi FROM kirjat WHERE kirjat.id = 1),1)
+#### 1. tehtävä
 
+Käyttäjä `Sanna Suomalainen` luki kaikki hänellä kesken olleet kirjat. Miten voimme muuttaa kirjat luetuiksi käyttäen `UPDATE` -komentoa?
+
+*Muuta taulukon `kirjat` tietoja*
+
+Komennon syntaksi on:
+```SQL
+UPDATE <taulukko> SET <sarake> = <tiedot> WHERE <argumentit>;
+```
+
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> Käytä lukijan `id`:tä, älä nimeä.
+>
+> Lukijan `Sanna Suomalainen` id pitäisi olla 7
+>
+></details>
+<br>
+
+><details>
+><summary>Extra</summary>
+><br>
+>
+> Käytä `... INNER JOIN <taulukko> ON ...` komentoa saadaksesi nimen linkitetyksi id:hen
+>
+> Esim:
+> ```SQL
+> ... INNER JOIN lukijat ON lukijat.id = kirjat.lukija_id ... WHERE lukijat.nimi = 'Sanna Suomalainen';
+> ```
+>
+></details>
+<br>
+
+#### 2. tehtävä
+
+
+><details>
+><summary>Vastaukset</summary>
+><br>
+>
+> ```SQL
+> -- 1. tehtävä
+> UPDATE kirjat SET luettu = 1 WHERE lukija_id = 7;
+>
+> -- Extra
+> UPDATE kirjat INNER JOIN lukijat ON lukijat.id = kirjat.lukija_id SET kirjat.luettu = 1 WHERE lukijat.nimi = 'Sanna Suomalainen';
+> ```
+>
+></details>
+<br>
 
 
 ><details>
