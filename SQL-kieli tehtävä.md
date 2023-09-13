@@ -1012,6 +1012,17 @@ UPDATE <taulukko> SET <sarake> = <tiedot> WHERE <argumentit>;
 
 #### 2. tehtävä
 
+Kaikki alle 300 sivun kirjat on keretty lukea, paitsi Vilho Vanhanaikaisen kirjat. Käytä `UPDATE` -komentoa ja päivitä luetut kirjat
+
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> Käytä `AND` -komentoa valitaksesi useamman ehdon.
+>
+></details>
+<br>
+
 
 ><details>
 ><summary>Vastaukset</summary>
@@ -1028,6 +1039,8 @@ UPDATE <taulukko> SET <sarake> = <tiedot> WHERE <argumentit>;
 ></details>
 <br>
 
+
+Subqueries, SELECT in SELECT (ANY, ALL) ehkä muitakin
 
 ><details>
 ><summary></summary>
