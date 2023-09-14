@@ -29,6 +29,7 @@ SQL-kielen Tehtävä <!-- omit from toc -->
     - [3 Kaikki kirjat jotka alkavat T:llä](#3-kaikki-kirjat-jotka-alkavat-tllä)
     - [4 Kaikki kirjat joissa on joko 'ä' tai 'ö'](#4-kaikki-kirjat-joissa-on-joko-ä-tai-ö)
     - [5 Kaikki kirjat, joiden sivumäärä on pariton](#5-kaikki-kirjat-joiden-sivumäärä-on-pariton)
+    - [6 Kaikki kirjat, joissa on joko 'm' tai 'n', mutta ei molempia](#6-kaikki-kirjat-joissa-on-joko-m-tai-n-mutta-ei-molempia)
   - [5.2 Kyselyjen vastaukset](#52-kyselyjen-vastaukset)
 
 
@@ -1161,7 +1162,16 @@ Kyselyn tulos näyttää tältä:
 
 ![tehtävä 5](assets/images/teht5.png)
 
-2. Kaikki kirjat, joissa on joko 'm' tai 'n', mutta ei molempia
+#### 6 Kaikki kirjat, joissa on joko 'm' tai 'n', mutta ei molempia
+
+Hae kaikkien kiejojen id ja nimi, joissa on joko 'm' tai 'n', mutta ei molempia
+
+Aseta nimen tilalle 'Kirjan nimi'
+
+Kyselyn tulos näyttää tältä:
+
+![tehtävä 6](assets/images/teht6.png)
+
 3. Kaikki kirjat, joiden sivumäärä ei ole välillä 200-400
 
 4. Kaikki kirjat, joiden lukija on yli 30 vuotias
@@ -1187,106 +1197,192 @@ Subqueries, SELECT in SELECT (ANY, ALL) ehkä muitakin
 > </details>
 <br>
 
-<details>
-<summary>Tehtävä 2</summary>
+><details>
+><summary>Tehtävä 2</summary>
+><br>
+>
+> ```SQL
+> SELECT nimi, ika FROM lukijat WHERE ika BETWEEN 18 AND 50;
+> ```
+>
+></details>
 <br>
 
-```SQL
-SELECT nimi, ika FROM lukijat WHERE ika BETWEEN 18 AND 50;
-
-```
-
-</details>
+><details>
+><summary>Tehtävä 3</summary>
+><br>
+>
+> ```SQL
+> SELECT nimi, luettu, sivumaara FROM kirjat WHERE nimi LIKE 'T%';
+> ```
+>
+></details>
 <br>
 
-<details>
-<summary>Tehtävä 2</summary>
+><details>
+><summary>Tehtävä 4</summary>
+><br>
+>
+> ```SQL
+> SELECT id, nimi AS 'Kirjan nimi', luettu, sivumaara FROM kirjat WHERE nimi LIKE '%ä%' OR nimi LIKE '%ö%';
+> ```
+>
+></details>
 <br>
 
-```SQL
-
-```
-
-</details>
+><details>
+><summary>Tehtävä 5</summary>
+><br>
+>
+> ```SQL
+> SELECT id, nimi AS 'Kirjan nimi', luettu AS 'Luettu = 1, Ei luettu = 0', sivumaara, lukija_id FROM kirjat WHERE sivumaara % 2 = 1;
+> ```
+>
+></details>
 <br>
 
-<details>
-<summary>Tehtävä 2</summary>
+><details>
+><summary>Tehtävä 6</summary>
+><br>
+>
+> ```SQL
+> SELECT id, nimi AS 'Kirjan nimi' FROM kirjat WHERE nimi LIKE '%m%' AND NOT nimi LIKE '%n%' OR nimi LIKE '%n%' AND NOT nimi LIKE '%m%';
+> ```
+>
+></details>
 <br>
 
-```SQL
-
-```
-
-</details>
+><details>
+><summary>Tehtävä 2</summary>
+><br>
+>
+> ```SQL
+>
+> ```
+>
+></details>
 <br>
 
-<details>
-<summary>Tehtävä 2</summary>
+><details>
+><summary>Tehtävä 2</summary>
+><br>
+>
+> ```SQL
+>
+> ```
+>
+></details>
 <br>
 
-```SQL
-
-```
-
-</details>
+><details>
+><summary>Tehtävä 2</summary>
+><br>
+>
+> ```SQL
+>
+> ```
+>
+></details>
 <br>
 
-<details>
-<summary>Tehtävä 2</summary>
+><details>
+><summary>Tehtävä 2</summary>
+><br>
+>
+> ```SQL
+>
+> ```
+>
+></details>
 <br>
 
-```SQL
-
-```
-
-</details>
+><details>
+><summary>Tehtävä 2</summary>
+><br>
+>
+> ```SQL
+>
+> ```
+>
+></details>
 <br>
 
-<details>
-<summary>Tehtävä 2</summary>
+><details>
+><summary>Tehtävä 2</summary>
+><br>
+>
+> ```SQL
+>
+> ```
+>
+></details>
 <br>
 
-```SQL
-
-```
-
-</details>
+><details>
+><summary>Tehtävä 2</summary>
+><br>
+>
+> ```SQL
+>
+> ```
+>
+></details>
 <br>
 
-<details>
-<summary>Tehtävä 2</summary>
+><details>
+><summary>Tehtävä 2</summary>
+><br>
+>
+> ```SQL
+>
+> ```
+>
+></details>
 <br>
 
-```SQL
-
-```
-
-</details>
+><details>
+><summary>Tehtävä 2</summary>
+><br>
+>
+> ```SQL
+>
+> ```
+>
+></details>
 <br>
 
-<details>
-<summary>Tehtävä 2</summary>
+><details>
+><summary>Tehtävä 2</summary>
+><br>
+>
+> ```SQL
+>
+> ```
+>
+></details>
 <br>
 
-```SQL
-
-```
-
-</details>
+><details>
+><summary>Tehtävä 2</summary>
+><br>
+>
+> ```SQL
+>
+> ```
+>
+></details>
 <br>
 
-<details>
-<summary>Tehtävä 2</summary>
+><details>
+><summary>Tehtävä 2</summary>
+><br>
+>
+> ```SQL
+>
+> ```
+>
+></details>
 <br>
-
-```SQL
-
-```
-
-</details>
-<br>
-
 
 ><details>
 ><summary></summary>
