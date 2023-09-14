@@ -30,6 +30,11 @@ SQL-kielen Tehtävä <!-- omit from toc -->
     - [4 Kaikki kirjat joissa on joko 'ä' tai 'ö'](#4-kaikki-kirjat-joissa-on-joko-ä-tai-ö)
     - [5 Kaikki kirjat, joiden sivumäärä on pariton](#5-kaikki-kirjat-joiden-sivumäärä-on-pariton)
     - [6 Kaikki kirjat, joissa on joko 'm' tai 'n', mutta ei molempia](#6-kaikki-kirjat-joissa-on-joko-m-tai-n-mutta-ei-molempia)
+    - [7 Kaikki kirjat, joiden sivumäärä ei ole välillä 200-400](#7-kaikki-kirjat-joiden-sivumäärä-ei-ole-välillä-200-400)
+    - [8 Kaikki kirjat, joiden lukija on yli 30 vuotias](#8-kaikki-kirjat-joiden-lukija-on-yli-30-vuotias)
+    - [9 Kaikki kirjat, jotka ovat kesken, ja joiden lukijoiden nimi loppuu 'nen'](#9-kaikki-kirjat-jotka-ovat-kesken-ja-joiden-lukijoiden-nimi-loppuu-nen)
+    - [10 kaikki kirjat, jotka on luettu paitsi jos: sivumäärä on yli 400, lukija on alle 40 vuotta, ja Lukija ei ole 'Sanna Suomalainen'](#10-kaikki-kirjat-jotka-on-luettu-paitsi-jos-sivumäärä-on-yli-400-lukija-on-alle-40-vuotta-ja-lukija-ei-ole-sanna-suomalainen)
+    - [11 Kaikki kirjat, jotka eivät ole uusia, luukuun ottamatta niitä kirjoja joita ei ole vielä luettu. Ja joiden lukijat eivät ole yli 70 vuotiaita tai alle 18 vuotiaita.](#11-kaikki-kirjat-jotka-eivät-ole-uusia-luukuun-ottamatta-niitä-kirjoja-joita-ei-ole-vielä-luettu-ja-joiden-lukijat-eivät-ole-yli-70-vuotiaita-tai-alle-18-vuotiaita)
   - [5.2 Kyselyjen vastaukset](#52-kyselyjen-vastaukset)
 
 
@@ -1168,23 +1173,83 @@ Hae kaikkien kiejojen id ja nimi, joissa on joko 'm' tai 'n', mutta ei molempia
 
 Aseta nimen tilalle 'Kirjan nimi'
 
+Käytä apuna argumenttia `NOT` jonka voi asettaa kaikkien muiden argumenttien eteen
+
 Kyselyn tulos näyttää tältä:
 
 ![tehtävä 6](assets/images/teht6.png)
 
-3. Kaikki kirjat, joiden sivumäärä ei ole välillä 200-400
+#### 7 Kaikki kirjat, joiden sivumäärä ei ole välillä 200-400
 
-4. Kaikki kirjat, joiden lukija on yli 30 vuotias
-5. Kaikki kirjat, jotka ovat kesken, ja joiden lukijoiden nimi loppuu 'nen'
-6.  Kaikki lukijat, joilla on yli 2 kirjaa luettuna
+Hae kaikkien kirjojen kaikki tiedot, joiden sivumäärä ei ole välillä 200 ja 400
 
-7.  kaikki kirjat, jotka on luettu paitsi jos: sivumäärä on yli 500, lukija on alle 40 vuotta, ja Lukija ei ole 'Vilho Vanhanaikainen'
-8.  Kaikki kirjat, jotka eivät ole uusia, luukuun ottamatta niitä kirjoja joita ei ole vielä luettu. Ja joiden lukijat eivät ole yli 70 vuotiaita tai alle 18 vuotiaita.
-9.  Kaikki kirjat, joiden lukija ei ole lukenut kaikkia kirjoja jotka hän on aloittanut, ja ei ole uusi lukija (ei ole taulukossa `lukijat2`) sekä kaikki kirjat, jotka ovat uusia ja joiden nimi ei lopu 'as'.
+Kyselyn tulos näyttää tältä:
 
-Subqueries, SELECT in SELECT (ANY, ALL) ehkä muitakin
+![tehtävä 7](assets/images/teht7.png)
+
+#### 8 Kaikki kirjat, joiden lukija on yli 30 vuotias
+
+Hae kaikkien kirjojen nimi, lukija_id ja lukijan ikä, joiden lukija on yli 30 vuotias.
+
+Järjestä vastaukset iän mukaan nousevaan järjestykseen `ORDER BY` komennolla. Jos käyttäjältä on useampi kirja, kirjat lajitellaan nimen mukaan nousevaan järjestykseen.
+
+Syntaksi:
+```SQL
+... ORDER BY <sarake> [ASC | DESC][, <sarake2> [ASC | DESC]] ...
+```
+
+Käytä `INNER JOIN` argumenttia saadaksesi yhdistettyä molemmmat taulukot
+
+Kyselyn tulos näyttää tältä:
+
+![tehtävä 8](assets/images/teht8.png)
+
+#### 9 Kaikki kirjat, jotka ovat kesken, ja joiden lukijoiden nimi loppuu 'nen'
+
+Hae kaikkien kirjojen tiedot, sekä lukijan nimi, joissa kirja on kesken ja lukijan nimi loppuu 'nen'
+
+Aseta lukijan nimen kohdalle 'Lukijan nimi'
+
+Käytä syntaksia `<sarake>.*` saadaksesi kaikki tiedot taulukosta kun haetaan useampia taulukoita.
+
+Järjestä tulokset sivumäärän mukaan laskevasti.
+
+Kyselyn tulos näyttää tältä:
+
+![tehtävä 9](assets/images/teht9.png)
+
+#### 10 kaikki kirjat, jotka on luettu paitsi jos: sivumäärä on yli 400, lukija on alle 40 vuotta, ja Lukija ei ole 'Sanna Suomalainen'
+
+Hae kaikkien kierjojen tiedot, joissa:
+
+1. sivumäärä on yli 400 sivua
+2. lukija on alle 40 vuotta
+3. lukija ei ole 'Sanna Suomalainen'
+
+Älä käytä `INNER JOIN` argumenttia, vaan `IN` argumenttia
+
+Syntaksi:
+```SQL
+... WHERE <arvo> IN (<lista>) ...
+```
+
+Kyselyn tulos näyttää tältä:
+
+![tehtävä 10](assets/images/teht10.png)
+
+#### 11 Kaikki kirjat, jotka eivät ole uusia, luukuun ottamatta niitä kirjoja joita ei ole vielä luettu. Ja joiden lukijat eivät ole yli 70 vuotiaita tai alle 18 vuotiaita.
+
+Hae kaikkien kirjojen tiedot, jotka eivät ole taulukossa `kirjat2`, paitsi, jos niitä ei ole vielä luettu. 
+
+Myöskään mitään kirjaa, jonka lukija on yli 70 vuotias, tai joka on alle 18 vuotias, ei näytetä.
+
+Kyselyn pitäisi näyttää tältä:
+
+![tehtävä 11](assets/images/teht11.png)
 
 ### 5.2 Kyselyjen vastaukset
+
+*Kyselyihin voi olla useampia vastauksia*
 
 ><details>
 ><summary>Tehtävä 1</summary>
@@ -1253,139 +1318,56 @@ Subqueries, SELECT in SELECT (ANY, ALL) ehkä muitakin
 <br>
 
 ><details>
-><summary>Tehtävä 2</summary>
+><summary>Tehtävä 7</summary>
 ><br>
 >
 > ```SQL
->
+> SELECT * FROM kirjat WHERE sivumaara NOT BETWEEN 200 AND 400;
 > ```
 >
 ></details>
 <br>
 
 ><details>
-><summary>Tehtävä 2</summary>
+><summary>Tehtävä 8</summary>
 ><br>
 >
 > ```SQL
->
+> SELECT k.nimi, k.lukija_id, l.ika FROM kirjat k INNER JOIN lukijat l ON l.id = k.lukija_id WHERE ika > 30 ORDER BY ika ASC, nimi ASC;
 > ```
 >
 ></details>
 <br>
 
 ><details>
-><summary>Tehtävä 2</summary>
+><summary>Tehtävä 9</summary>
 ><br>
 >
 > ```SQL
->
+> SELECT k.*, l.nimi FROM kirjat k INNER JOIN lukijat l ON l.id = k.lukija_id WHERE k.luettu = 0 AND l.nimi LIKE '%nen';
 > ```
 >
 ></details>
 <br>
 
 ><details>
-><summary>Tehtävä 2</summary>
+><summary>Tehtävä 10</summary>
 ><br>
 >
 > ```SQL
->
+> SELECT * FROM kirjat WHERE sivumaara > 400 AND lukija_id IN (SELECT id FROM lukijat WHERE ika < 40 AND nimi <> 'Sanna Suomalainen');
 > ```
 >
 ></details>
 <br>
 
 ><details>
-><summary>Tehtävä 2</summary>
+><summary>Tehtävä 11</summary>
 ><br>
 >
 > ```SQL
->
+> SELECT * FROM kirjat WHERE lukija_id IN (SELECT id FROM lukijat WHERE ika BETWEEN 18 AND 70) AND (nimi NOT IN (SELECT nimi FROM kirjat2) OR (nimi IN (SELECT nimi FROM kirjat2) AND luettu = 0));
 > ```
 >
-></details>
-<br>
-
-><details>
-><summary>Tehtävä 2</summary>
-><br>
->
-> ```SQL
->
-> ```
->
-></details>
-<br>
-
-><details>
-><summary>Tehtävä 2</summary>
-><br>
->
-> ```SQL
->
-> ```
->
-></details>
-<br>
-
-><details>
-><summary>Tehtävä 2</summary>
-><br>
->
-> ```SQL
->
-> ```
->
-></details>
-<br>
-
-><details>
-><summary>Tehtävä 2</summary>
-><br>
->
-> ```SQL
->
-> ```
->
-></details>
-<br>
-
-><details>
-><summary>Tehtävä 2</summary>
-><br>
->
-> ```SQL
->
-> ```
->
-></details>
-<br>
-
-><details>
-><summary>Tehtävä 2</summary>
-><br>
->
-> ```SQL
->
-> ```
->
-></details>
-<br>
-
-><details>
-><summary>Tehtävä 2</summary>
-><br>
->
-> ```SQL
->
-> ```
->
-></details>
-<br>
-
-><details>
-><summary></summary>
-><br>
 ></details>
 <br>
