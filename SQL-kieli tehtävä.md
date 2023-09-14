@@ -23,6 +23,13 @@ SQL-kielen Tehtävä <!-- omit from toc -->
     - [1. tehtävä](#1-tehtävä)
     - [2. tehtävä](#2-tehtävä)
 - [5 Haetaan taulukon tietoja](#5-haetaan-taulukon-tietoja)
+  - [5.1 Harjoitellaan hakufunktion käyttämistä](#51-harjoitellaan-hakufunktion-käyttämistä)
+    - [1 Kaikki luetut kirjat](#1-kaikki-luetut-kirjat)
+    - [2 Kaikki alle 50 vuoden ikäiset ja yli 18 vuoden ikäiset lukijat.](#2-kaikki-alle-50-vuoden-ikäiset-ja-yli-18-vuoden-ikäiset-lukijat)
+    - [3 Kaikki kirjat jotka alkavat T:llä](#3-kaikki-kirjat-jotka-alkavat-tllä)
+    - [4 Kaikki kirjat joissa on joko 'ä' tai 'ö'](#4-kaikki-kirjat-joissa-on-joko-ä-tai-ö)
+    - [5 Kaikki kirjat, joiden sivumäärä on pariton](#5-kaikki-kirjat-joiden-sivumäärä-on-pariton)
+  - [5.2 Kyselyjen vastaukset](#52-kyselyjen-vastaukset)
 
 
 Tietokannan luominen ja muokkaaminen SQL-kielellä CLI (*Command Line Interface*) -päätteessä
@@ -838,7 +845,7 @@ INSERT INTO <taulukko> [(<sarakkeet>)] SELECT ...
 > SELECT k2.etumini, k2.sukunimi FROM kayttajat_2 k2 WHERE ...;
 > ```
 
-Siirrä sitten taulukon `kirjat2` tiedot taulukkoon `kirjat`. Huomaa että sinun tulee vaihtaa `lukija_id` lukijoiden uusiksi `id`:ksi (Mikko Mallikas id = 1 -> 6, ja Sanna suomalainen id = 2 -> 7). Käytä vain yhtä komentoa tietojen lisäämiseen.
+Kopioi sitten taulukon `kirjat2` tiedot taulukkoon `kirjat`. Huomaa että sinun tulee vaihtaa `lukija_id` lukijoiden uusiksi `id`:ksi (Mikko Mallikas id = 1 -> 6, ja Sanna suomalainen id = 2 -> 7). Käytä vain yhtä komentoa tietojen lisäämiseen.
 
 *Voit taas käyttää taulukoiden nimien lyhentämiseen `AS` -komentoa `... FROM kayttajat AS k ...`*
 
@@ -1087,10 +1094,199 @@ Taulukon `kirjat` tulisi nyt näyttää tältä:
 
 ## 5 Haetaan taulukon tietoja
 
+### 5.1 Harjoitellaan hakufunktion käyttämistä
 
+Käytä `SELECT` komentoa ja suorita seuraavat haut:
 
+#### 1 Kaikki luetut kirjat
+
+Hae kaikkien luettujen kirjojen tiedot
+
+Kyselyn tulos näyttää tältä:
+
+![tehtävä 1](assets/images/teht1.png)
+
+#### 2 Kaikki alle 50 vuoden ikäiset ja yli 18 vuoden ikäiset lukijat.
+
+Hae kaikkien alle 50 vuoden ikäisien ja yli 18 vuoden ikäisien lukijoiden nimi, ja ikä
+
+Käytä argumenttia `... BETWEEN <arvo1> AND <arvo2>`
+
+Kyselyn tulos näyttää tältä:
+
+![tehtävä 2](assets/images/teht2.png)
+
+#### 3 Kaikki kirjat jotka alkavat T:llä
+
+Hae kaikkien kirjojen nimi, luettu ja sivumäärä, jotka alkavat kirjaimella 'T'
+
+Käytä argumenttia `LIKE '<teksti>'`. Merkki `%` tarkoittaa mitä tahansa merkkijonoa, ja merkki `_` mitä tahansa merkkiä
+
+Kyselyn tulos näyttää tältä:
+
+![tehtävä 3](assets/images/teht3.png)
+
+#### 4 Kaikki kirjat joissa on joko 'ä' tai 'ö'
+
+Hae kaikkien kirjojen kaikki tiedot lukuun ottamatta `lukija_id`:tä, joiden nimessä on 'ä' tai 'ö'
+
+Aseta kentän `nimi` kohdalle `Kirjan nimi` argumentilla `AS`
+
+Syntaksi:
+```SQL
+... <argumentti> AS '<nimi>' ...
+```
+
+Käytä argumenttia `OR`
+
+Kyselyn tulos näyttää tältä:
+
+![tehtävä 4](assets/images/teht4.png)
+
+#### 5 Kaikki kirjat, joiden sivumäärä on pariton
+
+Hae kaikkien kirjojen kaikki tiedot, joiden sivumäärä on pariton.
+
+Aseta nimen nimen kohdalle 'Kirjan nimi' ja luettu kohdalle 'Luettu = 1, Ei luettu = 0'
+
+Käytä argumenttia `%` jotta saat selville minkä kirjojen sivumäärät ovat parittomia
+
+`%` palauttaa jakojäännöksen
+```SQL
+SELECT 5 % 3;
+> 2
+```
+
+Kyselyn tulos näyttää tältä:
+
+![tehtävä 5](assets/images/teht5.png)
+
+2. Kaikki kirjat, joissa on joko 'm' tai 'n', mutta ei molempia
+3. Kaikki kirjat, joiden sivumäärä ei ole välillä 200-400
+
+4. Kaikki kirjat, joiden lukija on yli 30 vuotias
+5. Kaikki kirjat, jotka ovat kesken, ja joiden lukijoiden nimi loppuu 'nen'
+6.  Kaikki lukijat, joilla on yli 2 kirjaa luettuna
+
+7.  kaikki kirjat, jotka on luettu paitsi jos: sivumäärä on yli 500, lukija on alle 40 vuotta, ja Lukija ei ole 'Vilho Vanhanaikainen'
+8.  Kaikki kirjat, jotka eivät ole uusia, luukuun ottamatta niitä kirjoja joita ei ole vielä luettu. Ja joiden lukijat eivät ole yli 70 vuotiaita tai alle 18 vuotiaita.
+9.  Kaikki kirjat, joiden lukija ei ole lukenut kaikkia kirjoja jotka hän on aloittanut, ja ei ole uusi lukija (ei ole taulukossa `lukijat2`) sekä kaikki kirjat, jotka ovat uusia ja joiden nimi ei lopu 'as'.
 
 Subqueries, SELECT in SELECT (ANY, ALL) ehkä muitakin
+
+### 5.2 Kyselyjen vastaukset
+
+><details>
+><summary>Tehtävä 1</summary>
+><br>
+>
+> ```SQL
+> SELECT * FROM kirjat WHERE luettu = 1;
+> ```
+>
+> </details>
+<br>
+
+<details>
+<summary>Tehtävä 2</summary>
+<br>
+
+```SQL
+SELECT nimi, ika FROM lukijat WHERE ika BETWEEN 18 AND 50;
+
+```
+
+</details>
+<br>
+
+<details>
+<summary>Tehtävä 2</summary>
+<br>
+
+```SQL
+
+```
+
+</details>
+<br>
+
+<details>
+<summary>Tehtävä 2</summary>
+<br>
+
+```SQL
+
+```
+
+</details>
+<br>
+
+<details>
+<summary>Tehtävä 2</summary>
+<br>
+
+```SQL
+
+```
+
+</details>
+<br>
+
+<details>
+<summary>Tehtävä 2</summary>
+<br>
+
+```SQL
+
+```
+
+</details>
+<br>
+
+<details>
+<summary>Tehtävä 2</summary>
+<br>
+
+```SQL
+
+```
+
+</details>
+<br>
+
+<details>
+<summary>Tehtävä 2</summary>
+<br>
+
+```SQL
+
+```
+
+</details>
+<br>
+
+<details>
+<summary>Tehtävä 2</summary>
+<br>
+
+```SQL
+
+```
+
+</details>
+<br>
+
+<details>
+<summary>Tehtävä 2</summary>
+<br>
+
+```SQL
+
+```
+
+</details>
+<br>
+
 
 ><details>
 ><summary></summary>
