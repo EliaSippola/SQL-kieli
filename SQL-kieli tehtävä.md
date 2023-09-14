@@ -22,6 +22,7 @@ SQL-kielen Tehtävä <!-- omit from toc -->
   - [4.3 Muutetaan taulukoiden tietoja](#43-muutetaan-taulukoiden-tietoja)
     - [1. tehtävä](#1-tehtävä)
     - [2. tehtävä](#2-tehtävä)
+- [5 Haetaan taulukon tietoja](#5-haetaan-taulukon-tietoja)
 
 
 Tietokannan luominen ja muokkaaminen SQL-kielellä CLI (*Command Line Interface*) -päätteessä
@@ -1000,6 +1001,8 @@ UPDATE <taulukko> SET <sarake> = <tiedot> WHERE <argumentit>;
 ><summary>Extra</summary>
 ><br>
 >
+> **Useimmissa tietokannoissa on niin monta tietuetta, että ei ole järkevää etsiä tietyn nimen `id` arvoa.**
+>
 > Käytä `... INNER JOIN <taulukko> ON ...` komentoa saadaksesi nimen linkitetyksi id:hen
 >
 > Esim:
@@ -1012,7 +1015,7 @@ UPDATE <taulukko> SET <sarake> = <tiedot> WHERE <argumentit>;
 
 #### 2. tehtävä
 
-Kaikki alle 300 sivun kirjat on keretty lukea, paitsi Vilho Vanhanaikaisen kirjat. Käytä `UPDATE` -komentoa ja päivitä luetut kirjat
+Kaikki alle 300 sivun kirjat on keretty lukea, **paitsi Vilho Vanhanaikaisen kirjat**. Käytä `UPDATE` -komentoa ja päivitä luetut kirjat
 
 ><details>
 ><summary>Vihje 1</summary>
@@ -1023,21 +1026,68 @@ Kaikki alle 300 sivun kirjat on keretty lukea, paitsi Vilho Vanhanaikaisen kirja
 ></details>
 <br>
 
+><details>
+><summary>Vihje 2</summary>
+><br>
+>
+> Operaattori `is not` on SQL-kielessä `<>`
+> ```SQL
+> 1 <> 0
+> ```
+>
+></details>
+<br>
+
+><details>
+><summary>Extra</summary>
+><br>
+> 
+> **Useimmissa tietokannoissa on niin monta tietuetta, että ei ole järkevää etsiä tietyn nimen `id` arvoa.**
+> 
+> Käytä tällä kertaa komentoa `IN` rajataksesi käyttäjän `Ville Vanhanaikainen` pois
+>
+> Komento antaa arvon `TRUE` kun `<argumentti>` löytyy listasta. Käytä `SELECT` komentoa, sillä se palauttaa listan.
+>
+> Komennon syntaksi on
+> ```SQL
+> ... WHERE <argumentti> IN (<lista>);
+> ```
+>
+> *Muista käyttää `lukija_id`:tä taulukoiden arvojen yhdistämiseen*
+>
+></details>
+<br>
+
+Taulukon `kirjat` tulisi nyt näyttää tältä:
+
+![Kirjat lopullinen tila](assets/images/kirjat2.png)
+
+*Huomaa että id saattaa vaihdella. Kaikkien muiden tietojen pitäisi olla samanlaisia.*
 
 ><details>
 ><summary>Vastaukset</summary>
 ><br>
 >
 > ```SQL
-> -- 1. tehtävä
+> -- 1. tehtävä, helppo versio
 > UPDATE kirjat SET luettu = 1 WHERE lukija_id = 7;
 >
 > -- Extra
 > UPDATE kirjat INNER JOIN lukijat ON lukijat.id = kirjat.lukija_id SET kirjat.luettu = 1 WHERE lukijat.nimi = 'Sanna Suomalainen';
+>
+> -- 2. tehtävä, helppo versio
+> UPDATE kirjat SET luettu = 1 WHERE sivumaara < 300 AND lukija_id <> 2;
+>
+> -- Extra
+> UPDATE kirjat SET luettu = 1 WHERE sivumaara < 300 AND lukija_id IN (SELECT id FROM lukijat WHERE nimi <> 'Ville Vanhanaikainen');
 > ```
 >
 ></details>
 <br>
+
+## 5 Haetaan taulukon tietoja
+
+
 
 
 Subqueries, SELECT in SELECT (ANY, ALL) ehkä muitakin
