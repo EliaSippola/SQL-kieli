@@ -915,6 +915,16 @@ Kopioi sitten taulukon `kirjat2` tiedot taulukkoon `kirjat`. Huomaa että sinun 
 
 *Käytä komennossa apuna `INNER JOIN` argumenttia*
 
+***Huomaa, että tarvitset tietoja kolmesta eri taulukosta. Jos käytät vain kahta taulukkoa komennossa, komento todennäköisesti toimii väärin.***
+
+Jos toit vääriä tietoja taulukkoon, voit poistaa ne komennolla:
+```SQL
+-- poistetaan kaikki paitsi alkuperäiset tiedot (id yli 14)
+DELETE FROM kirjat WHERE id > 14;
+```
+
+<a id='inner-join'></a>
+
 <details>
 <summary><b><code>INNER JOIN</code></b></summary>
 <br>
@@ -989,6 +999,18 @@ Kun näytämme yhdistyneet arvot `lukija_id` ja `id`, niin huomaamme että kaikk
 ></details>
 <br>
 
+><details>
+><summary>Vihje 3</summary>
+><br>
+>
+> tarvitsemasi tiedot ovat siis:
+> ```SQL
+> ... SELECT kirjat2.nimi, kirjat2.luettu, kirjat2.sivumaara, lukijat.id ...
+> ```
+>
+></details>
+<br>
+
 Taulukon `kirjat` tulisi nyt näyttää suurin piirtein tältä:
 
 ![Kaikki kirjat](assets/images/Kaikki-kirjat.png)
@@ -1008,8 +1030,8 @@ Taulukon `kirjat` tulisi nyt näyttää suurin piirtein tältä:
 > INSERT INTO kirjat (nimi, luettu, sivumaara, lukija_id) ...
 >
 > -- Käytetään lyhenteitä kirjat2 = k2, lukijat = l, lukijat2 = l2
-> /* merkitään mistä haluamamme tiedot tulevat
-> Huomaa lukija_id:n kohdalle tulee taulukon 'lukijat' lukijan id */
+> -- merkitään mistä haluamamme tiedot tulevat
+> -- Huomaa lukija_id:n kohdalle tulee taulukon 'lukijat' lukijan id
 > ... SELECT k2.nimi, k2.luettu, k2.sivumaara, l.id ...
 > 
 > -- aletaan merkitä lähteitä:
@@ -1104,7 +1126,9 @@ Kaikki alle 300 sivun kirjat on keretty lukea, **paitsi Vilho Vanhanaikaisen kir
 >
 > Operaattori `is not` on SQL-kielessä `<>`
 > ```SQL
-> 1 <> 0
+> true <> false -- palauttaa TRUE
+> 1 <> 0 -- palauttaa TRUE
+> 1 <> 1 -- palauttaa FALSE
 > ```
 >
 ></details>
@@ -1259,6 +1283,8 @@ Syntaksi:
 
 Käytä `INNER JOIN` argumenttia saadaksesi yhdistettyä molemmmat taulukot
 
+[INNER JOIN -ohje](#inner-join)
+
 Kyselyn tulos näyttää tältä:
 
 ![tehtävä 8](assets/images/teht8.png)
@@ -1301,6 +1327,8 @@ Kyselyn tulos näyttää tältä:
 Hae kaikkien kirjojen tiedot, jotka eivät ole taulukossa `kirjat2`, paitsi, jos niitä ei ole vielä luettu. 
 
 Myöskään mitään kirjaa, jonka lukija on yli 70 vuotias, tai joka on alle 18 vuotias, ei näytetä.
+
+Älä käytä `INNER JOIN` argumenttia, vaan `IN` argumenttia
 
 Kyselyn pitäisi näyttää tältä:
 
@@ -1349,6 +1377,12 @@ Kyselyn pitäisi näyttää tältä:
 >
 > ```SQL
 > SELECT id, nimi AS 'Kirjan nimi', luettu, sivumaara FROM kirjat WHERE nimi LIKE '%ä%' OR nimi LIKE '%ö%';
+>
+> SELECT id, nimi 'Kirjan nimi', luettu, sivumaara FROM kirjat WHERE nimi LIKE '%ä%' OR nimi LIKE '%ö%';
+>
+> SELECT id, nimi AS 'Kirjan nimi', luettu, sivumaara FROM kirjat WHERE nimi LIKE '%ä%' OR '%ö%'; 
+>
+> SELECT id, nimi 'Kirjan nimi', luettu, sivumaara FROM kirjat WHERE nimi LIKE '%ä%' OR '%ö%';
 > ```
 >
 ></details>
@@ -1360,6 +1394,8 @@ Kyselyn pitäisi näyttää tältä:
 >
 > ```SQL
 > SELECT id, nimi AS 'Kirjan nimi', luettu AS 'Luettu = 1, Ei luettu = 0', sivumaara, lukija_id FROM kirjat WHERE sivumaara % 2 = 1;
+>
+> SELECT id, nimi 'Kirjan nimi', luettu 'Luettu = 1, Ei luettu = 0', sivumaara, lukija_id FROM kirjat WHERE sivumaara % 2 = 1;
 > ```
 >
 ></details>
@@ -1403,7 +1439,7 @@ Kyselyn pitäisi näyttää tältä:
 ><br>
 >
 > ```SQL
-> SELECT k.*, l.nimi FROM kirjat k INNER JOIN lukijat l ON l.id = k.lukija_id WHERE k.luettu = 0 AND l.nimi LIKE '%nen';
+> SELECT k.*, l.nimi AS 'Lukijan nimi' FROM kirjat k INNER JOIN lukijat l ON k.lukija_id = l.id WHERE k.luettu = 0 AND l.nimi LIKE '%nen';
 > ```
 >
 ></details>
@@ -1415,6 +1451,8 @@ Kyselyn pitäisi näyttää tältä:
 >
 > ```SQL
 > SELECT * FROM kirjat WHERE sivumaara > 400 AND lukija_id IN (SELECT id FROM lukijat WHERE ika < 40 AND nimi <> 'Sanna Suomalainen');
+>
+> SELECT * FROM kirjat WHERE sivumaara > 400 AND lukija_id NOT IN (SELECT id FROM lukijat WHERE ika >= 40 OR nimi = 'Sanna Suomalainen');
 > ```
 >
 ></details>
@@ -1503,5 +1541,6 @@ Käytä argumenttia `--no-create-info`, argumentin `--no-data` sijasta.
 
 ### 6.3 Palauta tietokannan rakenne
 
-Palauta tietokannan rakenne ja tiedot erikseen tänne: <--linkki-->
+Palauta tietokannan rakenne tänne:
 
+Palauta tietokannan tiedot tänne:
