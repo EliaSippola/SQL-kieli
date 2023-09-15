@@ -39,8 +39,8 @@ SQL-kielen Tehtävä <!-- omit from toc -->
   - [5.3 extra](#53-extra)
 - [6 Varmuuskopioidaan ja palautetaan tietokanta](#6-varmuuskopioidaan-ja-palautetaan-tietokanta)
   - [6.1 Varmuuskopiodaan tietokannan rakenne](#61-varmuuskopiodaan-tietokannan-rakenne)
-  - [6.2](#62)
-  - [6.3](#63)
+  - [6.2 Varmuuskopioidaan tietokannan rakenne](#62-varmuuskopioidaan-tietokannan-rakenne)
+  - [6.3 Palauta tietokannan rakenne](#63-palauta-tietokannan-rakenne)
 
 
 Tietokannan luominen ja muokkaaminen SQL-kielellä CLI (*Command Line Interface*) -päätteessä
@@ -1441,13 +1441,13 @@ Esimerkiksi:
 mysqldump.exe -u root --no-data uusi_db > c:\users\kayttaja1\desktop\uusi_db_rakenne.sql
 ```
 
-### 6.2
+### 6.2 Varmuuskopioidaan tietokannan rakenne
 
 Varmuuskopioidaan nyt vain tietokannan tiedot
 
 Käytä argumenttia `--no-create-info`, argumentin `--no-data` sijasta.
 
-### 6.3
+### 6.3 Palauta tietokannan rakenne
 
 Palauta tietokannan rakenne ja tiedot erikseen tänne: <--linkki-->
 
