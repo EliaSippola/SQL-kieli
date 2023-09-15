@@ -1379,7 +1379,47 @@ Kyselyn pitäisi näyttää tältä:
 
 ### 5.3 extra
 
+***Tämä kohta on vain extra kohta. Tätä ei ole pakko tehdä. Jos muut tehtävät tuntuivat helpoilta, tee tämä tehtävä. Pyri tekemään tehtävä mahdollisimman pitkälle ilman, että katsot vastausta.***
+
 Hae kaikki käyttäjät, jotka ovat lukeneet 2 tai useampia kirjoja.
+
+Liitä hakuun myös luettujen kirjojen määrä, ja käytä `AS` argumenttia ja aseata sen nimeksi `Luetut kirjat`.
+
+
+Sinun täytyy yhdistää taulukot ``
+
+><details>
+><summary>Vihje 1</summary>
+><br>
+>
+> Sinun täytyy yhdistää taulukot `lukijat` ja `kirjat`
+>
+></details>
+<br>
+
+><details>
+><summary>Vihje 2</summary>
+><br>
+>
+> Tarvitset argumentteja `COUNT()`, `GROUP BY` ja `HAVING`
+>
+></details>
+<br>
+
+Tulostus näyttää tältä:
+
+![extra 1](assets/images/extra1.png)
+
+><details>
+><summary>Vastaus</summary>
+><br>
+>
+> ```SQL
+> SELECT l.*, COUNT(k.id) AS 'Luetut kirjat' FROM lukijat l INNER JOIN kirjat k ON k.lukija_id = l.id AND luettu = 1 GROUP BY l.id HAVING COUNT(DISTINCT k.nimi) > 1;
+> ```
+>
+></details>
+<br>
 
 ## 6 Varmuuskopioidaan ja palautetaan tietokanta
 
