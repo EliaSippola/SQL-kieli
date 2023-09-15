@@ -1183,6 +1183,8 @@ Taulukon `kirjat` tulisi nyt näyttää tältä:
 
 ## 5 Haetaan taulukon tietoja
 
+***Ota tehtävien vastaukset talteen, ja palauta ne lopuski tänne: <-- linkki --> ***
+
 ### 5.1 Harjoitellaan hakufunktion käyttämistä
 
 Käytä `SELECT` komentoa ja suorita seuraavat haut:
