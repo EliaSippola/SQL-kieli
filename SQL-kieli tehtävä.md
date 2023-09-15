@@ -36,6 +36,11 @@ SQL-kielen Tehtävä <!-- omit from toc -->
     - [10 kaikki kirjat, jotka on luettu paitsi jos: sivumäärä on yli 400, lukija on alle 40 vuotta, ja Lukija ei ole 'Sanna Suomalainen'](#10-kaikki-kirjat-jotka-on-luettu-paitsi-jos-sivumäärä-on-yli-400-lukija-on-alle-40-vuotta-ja-lukija-ei-ole-sanna-suomalainen)
     - [11 Kaikki kirjat, jotka eivät ole uusia, luukuun ottamatta niitä kirjoja joita ei ole vielä luettu. Ja joiden lukijat eivät ole yli 70 vuotiaita tai alle 18 vuotiaita.](#11-kaikki-kirjat-jotka-eivät-ole-uusia-luukuun-ottamatta-niitä-kirjoja-joita-ei-ole-vielä-luettu-ja-joiden-lukijat-eivät-ole-yli-70-vuotiaita-tai-alle-18-vuotiaita)
   - [5.2 Kyselyjen vastaukset](#52-kyselyjen-vastaukset)
+  - [5.3 extra](#53-extra)
+- [6 Varmuuskopioidaan ja palautetaan tietokanta](#6-varmuuskopioidaan-ja-palautetaan-tietokanta)
+  - [6.1 VArmuuskoipiodaan tietokannan rakenne](#61-varmuuskoipiodaan-tietokannan-rakenne)
+  - [6.2](#62)
+  - [6.3](#63)
 
 
 Tietokannan luominen ja muokkaaminen SQL-kielellä CLI (*Command Line Interface*) -päätteessä
@@ -1169,7 +1174,7 @@ Kyselyn tulos näyttää tältä:
 
 #### 6 Kaikki kirjat, joissa on joko 'm' tai 'n', mutta ei molempia
 
-Hae kaikkien kiejojen id ja nimi, joissa on joko 'm' tai 'n', mutta ei molempia
+Hae kaikkien kirjojen id ja nimi, joissa on joko 'm' tai 'n', mutta ei molempia
 
 Aseta nimen tilalle 'Kirjan nimi'
 
@@ -1371,3 +1376,38 @@ Kyselyn pitäisi näyttää tältä:
 >
 ></details>
 <br>
+
+### 5.3 extra
+
+Hae kaikki käyttäjät, jotka ovat lukeneet 2 tai useampia kirjoja.
+
+## 6 Varmuuskopioidaan ja palautetaan tietokanta
+
+Poistu SQL-päätteestä komennolla `exit`
+
+Varmuuskopioidaan tietokannan `uusi_db` rakenne ja tiedot erikseen terminaalista.
+Käytetään sovellusta `mysqldump.exe` tietokannan varmuuskopioimiseen.
+
+### 6.1 VArmuuskoipiodaan tietokannan rakenne
+
+Varmuuskopioi tietokanta uusi_db, ja käytä argumenttia `--no-data`
+
+```powershell
+mysqldump.exe -u root --no-data uusi_db > <polku><tiedosto>.sql
+```
+
+Esimerkiksi:
+```powershell
+mysqldump.exe -u root --no-data uusi_db > c:\users\kayttaja1\desktop\uusi_db_rakenne.sql
+```
+
+### 6.2
+
+Varmuuskopioidaan nyt vain tietokannan tiedot
+
+Käytä argumenttia `--no-create-info`, argumentin `--no-data` sijasta.
+
+### 6.3
+
+Palauta tietokannan rakenne ja tiedot erikseen tänne: <--linkki-->
+
