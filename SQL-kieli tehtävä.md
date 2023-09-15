@@ -13,6 +13,7 @@ SQL-kielen Tehtävä <!-- omit from toc -->
   - [2.4 Kirjaudutaan sisään käyttäen luotua käyttäjää](#24-kirjaudutaan-sisään-käyttäen-luotua-käyttäjää)
 - [3 Taulukoiden luominen tietokantaan](#3-taulukoiden-luominen-tietokantaan)
   - [3.1 Luodaan taulukko `lukijat`](#31-luodaan-taulukko-lukijat)
+  - [Jos taulukon luonti epäonnistui, muuta taulukon tietoja komennolla `CHANGE` tai `MODIFY`](#jos-taulukon-luonti-epäonnistui-muuta-taulukon-tietoja-komennolla-change-tai-modify)
   - [3.3 Luodaan taulukko `kirjat`](#33-luodaan-taulukko-kirjat)
   - [3.3 Kokeillaan asetettuja rajoituksia](#33-kokeillaan-asetettuja-rajoituksia)
 - [4 tuodaan tietoja taulukoihin](#4-tuodaan-tietoja-taulukoihin)
@@ -87,6 +88,8 @@ XAMPP on useimmiten asennettu aseman `C:` juureen
 
 *huom, XAMPP saattaa olla asennettuna toiseen tiedostosijaintiin*
 
+***Saat edellisen komennon näkyviin käyttämällä nuolinäppäimiä terminaalissa.<br> Ylös = edellinen komento, Alas = seuraava komento (jos ollaan liikuttu edellisiin komentoihin).<br> Käytä tätä ominaisuutta komentojen muokkaamiseen, jotta sinun ei tarvithe kirjoittaa komentoja uudelleen joka kerta.***
+
 ### 1.2 Käynnistä yhteys SQL-palvelimeen komentokehoitteesta.
 
 Käytä sovellusta mysql.exe yhteyden muodostamiseen
@@ -132,7 +135,7 @@ Käytä sovellusta mysql.exe yhteyden muodostamiseen
 
 ### 2.1 Luodaan uusi tietokanta nimellä `uusi_db`
 
-*jos tietokanta on jo olemassa, keksi teitokannalle uusi nimi*
+*jos tietokanta on jo olemassa, keksi tietokannalle uusi nimi*
 
 ><details>
 ><summary>Vihje 1</summary>
@@ -225,7 +228,7 @@ Käytetään komentoa `CREATE USER` ja luodaan käyttäjä `uusi_db_kayttaja` sa
 >
 > komennon muoto on:
 > ```SQL
-> CREATE USER <käyttäjänimi> IDENTIFIED BY <salasana>;
+> CREATE USER <käyttäjänimi> IDENTIFIED BY '<salasana>';
 > ```
 >
 ></details>
@@ -424,7 +427,6 @@ ALTER TABLE <taulukko> ADD CONSTRAINT [<vaatimuksen nimi>] CHECK(<argumentit>)
 >
 > argumenttien väliin täytyy asettaa `AND` -operaattori
 >
-> Vaatimukselle täytyy myöskin asettaa nimi
 >
 ></details>
 <br>
@@ -451,8 +453,6 @@ Vastauksen tulisi näyttää tältä:
 
 ![CHECK -vaatimus](assets/images/CHECK-vaatimus.png)
 
-*Vaatimuksen sisällöt löytyvät tietokannasta sys, johon käyttäjällä `uusi_db_kayttaja` ei ole pääsyä*
-
 `CHECK` -vaatimusten sisällöt voi tarkistaa komennolla:
 ```SQL
 SELECT * FROM INFORMATION_SCHEMA.CHECK_CONSTRAINTS WHERE TABLE_NAME = 'lukijat';
@@ -465,7 +465,19 @@ Jos sinulla on ylimääräisiä vaatimuksia, voit poistaa ne komennolla
 ALTER TABLE <taulukko> DROP CONSTRAINT <vaatimus>;
 ```
 
+### Jos taulukon luonti epäonnistui, muuta taulukon tietoja komennolla `CHANGE` tai `MODIFY`
+
+```SQL
+-- vaihdetaan arvot mutta ei nimeä MODIFY komennolla
+ALTER TABLE <taulukko> MODIFY <sarake> <argumentit>;
+-- Komento tyhjentää alkuperäiset parametrit, joten aseta kaikki argumentit uudelleen
+
+-- vaihdetaan myös nimi CHANGE komennolla
+ALTER TABLE <taulukko> CHANGE <sarake> <sarakkeen_uusi_nimi> <argumentit>;
+-- muista asettaa kaikki argumentit uudelleen
+```
 <br>
+
 
 ><details>
 ><summary>Koodi</summary>
@@ -501,20 +513,25 @@ ALTER TABLE <taulukko> DROP CONSTRAINT <vaatimus>;
 ### 3.3 Luodaan taulukko `kirjat`
 
 luo taulukko nimellä `kirjat` <br>
-Taulukkoon tulee ainakin seuraavat kentät:
+Taulukkoon tulee seuraavat kentät:
 
+`id` - id<br>
 `nimi` - kirjan nimi<br>
 `luettu` - onko kirja luettu vai kesken<br>
 `sivumaara` - kirjan sivujen määrä, saa olla tyhjä<br>
 `lukija_id` - lukijan id
 
-*muista myös asettaa PRIMARY KEY -kenttä*
+Aseta kentille oikeat asetukset. Huomaa että vain `sivumaara` saa olla tyhjä
+
+*muista asettaa PRIMARY KEY -kenttä*
 
 ><details>
 ><summary>Vihje 1</summary>
 ><br>
 >
 > Aseta taulukon ensimmäiseksi sarakkeeksi `id` -kenttä, joka toimii pääavaimena
+>
+> Anna pääavaimelle vaatimukset ei tyhjä, pääavain, ja auto increment
 >
 ></details>
 <br>
@@ -593,6 +610,20 @@ SELECT * FROM INFORMATION_SCHEMA.CHECK_CONSTRAINTS WHERE TABLE_NAME = 'kirjat';
 ```
 
 ![CHECK vaatimukset](assets/images/CHECK-tiedot2.png)
+
+Jos sinulla tuli virheitä komennoissa, käytä komentoa `ALTER TABLE` taulukoiden muuttamiseksi oikein.
+
+[Ohje talukon sarakkeiden muuttamiseen](#jos-taulukon-luonti-epäonnistui-muuta-taulukon-tietoja-komennolla-change-tai-modify)
+
+Jos sinulla oli virheitä vaatimuksissa, sinun täytyy poistaa vaatimus komennolla
+```SQL
+ALTER TABLE <taulukko> DROP CONSTRAINT <vaatimus>;
+```
+Sen jälkeen luo vaatimus uudelleen `ADD CONSTRAINT` komennolla
+```SQL
+ALTER TABLE <taulukko> ADD CONSTRAINT ...
+```
+<br>
 
 ><details>
 ><summary>Koodi</summary>
@@ -731,7 +762,19 @@ Lisätään `lukijat` -taulukkoon käyttäjä `Tiina Tavallinen`, jonka ikä on 
 >
 > Komennon muoto on:
 > ```SQL
-> INSERT INTO <taulukko> [<sarakkeet>] VALUES (<tiedot>);
+> INSERT INTO <taulukko> [(<sarakkeet>)] VALUES (<tiedot>);
+> ```
+>
+></details>
+<br>
+
+><details>
+><summary>Vihje 3</summary>
+><br>
+>
+> tarvitset tiedot `nimi` ja `ika`
+> ```SQL
+> ... lukijat (nimi, ika) VALUES ...
 > ```
 >
 ></details>
@@ -774,9 +817,15 @@ Lisätään sitten lukijalle `Tiina Tavallinen` kirjoja:
 ></details>
 <br>
 
+
 Taulukkoon tulisi nyt tulla näkyviin seuraavat rivit:
 
 ![tavalliset kirjat](assets/images/tavalliset-kirjat.png)
+
+Jos asetit tietoje väärin, voit muokata tietoja komennolla:
+```SQL
+UPDATE <taulukko> SET <sarake> = <uusi_arvo> [, <sarake_2> = <uusi_arvo_2>] WHERE <kohta missä sarakkeita muutetaan> -- käytä id = 13 jos haluat muokata Tiinan tetoja
+```
 
 ><details>
 ><summary>Koodi</summary>
@@ -822,6 +871,17 @@ Komennon muoto on:
 INSERT INTO <taulukko> [(<sarakkeet>)] SELECT ...
 ```
 
+> Kun otetaan tietoja toisesta taulukosta, voi olla hyödyllistä käyttää SQL-aliaksia. Aliaksien avulla voidaan lyhentää pitkää taulukon nimeä esimerkiksi `SELECT` -komennossa:
+>
+> Esimerkiksi:
+> ```SQL
+> -- haetaan tietoja toisesta taulukosta
+> SELECT k2.etunimi, k2.sukunimi FROM kayttajat_2 AS k2 WHERE ...;
+>
+> -- Ei ole pakko käyttää 'AS' argumenttia ainakaan MariaDB:ssä
+> SELECT k2.etumini, k2.sukunimi FROM kayttajat_2 k2 WHERE ...;
+> ```
+
 ><details>
 ><summary>Vihje 1</summary>
 ><br>
@@ -845,16 +905,9 @@ INSERT INTO <taulukko> [(<sarakkeet>)] SELECT ...
 ></details>
 <br>
 
-> Kun otetaan tietoja toisesta taulukosta, voi olla hyödyllistä käyttää SQL-aliaksia. Aliaksien avulla voidaan lyhentää pitkää taulukon nimeä esimerkiksi `SELECT` -komennossa:
->
-> Esimerkiksi:
-> ```SQL
-> -- haetaan tietoja toisesta taulukosta
-> SELECT k2.etunimi, k2.sukunimi FROM kayttajat_2 AS k2 WHERE ...;
->
-> -- Ei ole pakko käyttää 'AS' argumenttia ainakaan MariaDB:ssä
-> SELECT k2.etumini, k2.sukunimi FROM kayttajat_2 k2 WHERE ...;
-> ```
+Taulukon `lukijat` tulisi nyt näyttää suurin piirtein tältä:
+
+![kaikki lukijat](assets/images/kaikki-lukijat.png)
 
 Kopioi sitten taulukon `kirjat2` tiedot taulukkoon `kirjat`. Huomaa että sinun tulee vaihtaa `lukija_id` lukijoiden uusiksi `id`:ksi (Mikko Mallikas id = 1 -> 6, ja Sanna suomalainen id = 2 -> 7). Käytä vain yhtä komentoa tietojen lisäämiseen.
 
@@ -936,6 +989,12 @@ Kun näytämme yhdistyneet arvot `lukija_id` ja `id`, niin huomaamme että kaikk
 ></details>
 <br>
 
+Taulukon `kirjat` tulisi nyt näyttää suurin piirtein tältä:
+
+![Kaikki kirjat](assets/images/Kaikki-kirjat.png)
+
+*Huomaa muuttuneet `lukija_id`:t viimeisissä tietueissa*
+
 *Seuraa vastauksen vaiheita ymmärtääksesi komennon eri osat ja vaiheet*
 
 ><details>
@@ -983,11 +1042,6 @@ Kun näytämme yhdistyneet arvot `lukija_id` ja `id`, niin huomaamme että kaikk
 ></details>
 <br>
 
-Taulukon `kirjat` tulisi nyt näyttää suurin piirtein tältä:
-
-![Kaikki kirjat](assets/images/Kaikki-kirjat.png)
-
-*Huomaa muuttuneet `lukija_id`:t viimeisissä tietueissa*
 
 ### 4.3 Muutetaan taulukoiden tietoja
 
