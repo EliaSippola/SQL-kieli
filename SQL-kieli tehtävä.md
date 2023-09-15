@@ -38,7 +38,7 @@ SQL-kielen Tehtävä <!-- omit from toc -->
   - [5.2 Kyselyjen vastaukset](#52-kyselyjen-vastaukset)
   - [5.3 extra](#53-extra)
 - [6 Varmuuskopioidaan ja palautetaan tietokanta](#6-varmuuskopioidaan-ja-palautetaan-tietokanta)
-  - [6.1 VArmuuskoipiodaan tietokannan rakenne](#61-varmuuskoipiodaan-tietokannan-rakenne)
+  - [6.1 Varmuuskopiodaan tietokannan rakenne](#61-varmuuskopiodaan-tietokannan-rakenne)
   - [6.2](#62)
   - [6.3](#63)
 
@@ -1428,7 +1428,7 @@ Poistu SQL-päätteestä komennolla `exit`
 Varmuuskopioidaan tietokannan `uusi_db` rakenne ja tiedot erikseen terminaalista.
 Käytetään sovellusta `mysqldump.exe` tietokannan varmuuskopioimiseen.
 
-### 6.1 VArmuuskoipiodaan tietokannan rakenne
+### 6.1 Varmuuskopiodaan tietokannan rakenne
 
 Varmuuskopioi tietokanta uusi_db, ja käytä argumenttia `--no-data`
 
