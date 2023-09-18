@@ -1,3 +1,0 @@
-# Repositorion luominen GitHubiin
-
-
