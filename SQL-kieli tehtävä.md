@@ -1338,7 +1338,7 @@ Kyselyn pitäisi näyttää tältä:
 
 ### 5.2 Palauta tehtävät tänne: [SQL-kieli - opi.riveria.fi](https://opi.riveria.fi/moodle/mod/assign/view.php?id=151929)
 <!--
-### 5.2 Kyselyjen vastaukset
+### Kyselyjen vastaukset
 
 *Kyselyihin voi olla useampia vastauksia*
 
