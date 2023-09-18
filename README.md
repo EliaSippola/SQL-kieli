@@ -18,7 +18,7 @@ Esimerkiksi Oracle, MySQL, Microsoft SQL server, PostreSQL, sekä MariaDB ovat t
 
 ### Mihin SQL-kieltä käytetään?
 
-- SQL:ää käytetään tietokantojen hallinnointiin suoraan CLI-päätteestä (Command Line Interface), tai koodista.
+- SQL:ää käytetään tietokantojen hallinnointiin suoraan CLI-päätteestä (Command Line Interface), koodista käsin, tai graafisesta käyttöliittymästä epäsuorasti (painikkeiden kautta) tai suoraan sitä varten tehdyllä toiminnolla.
 - Sen avulla voidaan sekä hallinnoida tietokantoja, käyttäjiä ja niiden oikeuksia, että hakea, lisätä, muokata ja poistaa tietokantojen taulukoita ja tietueita.
 <br>
 
