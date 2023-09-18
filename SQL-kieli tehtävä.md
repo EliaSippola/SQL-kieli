@@ -36,7 +36,6 @@ SQL-kielen Tehtävä <!-- omit from toc -->
     - [9 Kaikki kirjat, jotka ovat kesken, ja joiden lukijoiden nimi loppuu 'nen'](#9-kaikki-kirjat-jotka-ovat-kesken-ja-joiden-lukijoiden-nimi-loppuu-nen)
     - [10 kaikki kirjat, jotka on luettu paitsi jos: sivumäärä on yli 400, lukija on alle 40 vuotta, ja Lukija ei ole 'Sanna Suomalainen'](#10-kaikki-kirjat-jotka-on-luettu-paitsi-jos-sivumäärä-on-yli-400-lukija-on-alle-40-vuotta-ja-lukija-ei-ole-sanna-suomalainen)
     - [11 Kaikki kirjat, jotka eivät ole uusia, luukuun ottamatta niitä kirjoja joita ei ole vielä luettu. Ja joiden lukijat eivät ole yli 70 vuotiaita tai alle 18 vuotiaita.](#11-kaikki-kirjat-jotka-eivät-ole-uusia-luukuun-ottamatta-niitä-kirjoja-joita-ei-ole-vielä-luettu-ja-joiden-lukijat-eivät-ole-yli-70-vuotiaita-tai-alle-18-vuotiaita)
-  - [5.2 Kyselyjen vastaukset](#52-kyselyjen-vastaukset)
   - [5.3 extra](#53-extra)
 - [6 Varmuuskopioidaan ja palautetaan tietokanta](#6-varmuuskopioidaan-ja-palautetaan-tietokanta)
   - [6.1 Varmuuskopiodaan tietokannan rakenne](#61-varmuuskopiodaan-tietokannan-rakenne)
@@ -1183,7 +1182,7 @@ Taulukon `kirjat` tulisi nyt näyttää tältä:
 
 ## 5 Haetaan taulukon tietoja
 
-***Ota tehtävien vastaukset talteen, ja palauta ne lopuski tänne: <-- linkki --> ***
+***Ota tehtävien vastaukset talteen, ja palauta ne lopuksi tänne: [SQL-kieli - opi.riveria.fi](https://opi.riveria.fi/moodle/mod/quiz/view.php?id=151879) ***
 
 ### 5.1 Harjoitellaan hakufunktion käyttämistä
 
@@ -1336,6 +1335,7 @@ Kyselyn pitäisi näyttää tältä:
 
 ![tehtävä 11](assets/images/teht11.png)
 
+<!--
 ### 5.2 Kyselyjen vastaukset
 
 *Kyselyihin voi olla useampia vastauksia*
@@ -1470,6 +1470,7 @@ Kyselyn pitäisi näyttää tältä:
 >
 ></details>
 <br>
+-->
 
 ### 5.3 extra
 
@@ -1477,10 +1478,7 @@ Kyselyn pitäisi näyttää tältä:
 
 Hae kaikki käyttäjät, jotka ovat lukeneet 2 tai useampia kirjoja.
 
-Liitä hakuun myös luettujen kirjojen määrä, ja käytä `AS` argumenttia ja aseata sen nimeksi `Luetut kirjat`.
-
-
-Sinun täytyy yhdistää taulukot ``
+Liitä hakuun myös luettujen kirjojen määrä, ja käytä `AS` argumenttia ja aseta sen nimeksi `Luetut kirjat`.
 
 ><details>
 ><summary>Vihje 1</summary>
@@ -1543,6 +1541,8 @@ Käytä argumenttia `--no-create-info`, argumentin `--no-data` sijasta.
 
 ### 6.3 Palauta tietokannan rakenne
 
-Palauta tietokannan rakenne tänne:
+Palauta tietokannan rakenne tänne: [Palauta SQL-kieli tentin tietokannan rakenne - opi.riveria.fi](https://opi.riveria.fi/moodle/mod/assign/view.php?id=151928)
 
-Palauta tietokannan tiedot tänne:
+Palauta tietokannan tiedot tänne: [Palauta SQL-kieli tentin tietokannan tiedot (data) - opi.riveria.fi](https://opi.riveria.fi/moodle/mod/assign/view.php?id=151929)
+
+*Tarvitset Riverian tunnukset palauttaaksesi tehtävät.*
