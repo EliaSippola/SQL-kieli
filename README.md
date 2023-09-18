@@ -96,7 +96,7 @@ SeLeCt * fROm kayttajat;
 
 Myöskään tietokantojen, taulujen ja sarakkeiden nimet eivät ole riippuvaisia merkkikoosta:
 ```SQL
-kaYTajAT == kayttajat
+kaYTajAT = kayttajat
 ```
 
 Selvyyden vuoksi komennoissa käytetään usein isoja kirjaimia, ja nimissä pieniä:
